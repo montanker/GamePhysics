@@ -1,15 +1,24 @@
-﻿Build started 1/18/2015 3:49:48 AM.
+﻿Build started 1/18/2015 6:03:07 PM.
      1>Project "C:\GamePhysics\Assignment 0\Assignment 0\Assignment 0.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Assignment 0.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp Shape.cpp
-         Shape.cpp
-     1>c:\gamephysics\assignment 0\assignment 0\shape.cpp(1): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Camera.cpp main.cpp
          main.cpp
+     1>c:\gamephysics\assignment 0\assignment 0\main.cpp(87): warning C4244: 'argument' : conversion from 'int' to 'float', possible loss of data
+         Camera.cpp
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(23): warning C4244: 'return' : conversion from 'double' to 'float', possible loss of data
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(32): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(33): warning C4244: 'initializing' : conversion from 'double' to 'int', possible loss of data
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(145): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(148): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(151): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>c:\gamephysics\assignment 0\assignment 0\camera.cpp(154): warning C4800: 'int' : forcing value to bool 'true' or 'false' (performance warning)
          Generating Code...
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.exe" /INCREMENTAL /NOLOGO /LIBPATH:"lib-msvc120" glfw3dll.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.lib" /MACHINE:X86 Debug\main.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.exe" /INCREMENTAL /NOLOGO /LIBPATH:"lib-msvc120" glfw3dll.lib opengl32.lib glu32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.lib" /MACHINE:X86 Debug\Camera.obj
+         Debug\Cube.obj
+         Debug\main.obj
          Debug\Shape.obj
          Assignment 0.vcxproj -> C:\GamePhysics\Assignment 0\Assignment 0\Debug\Assignment 0.exe
        FinalizeBuildStatus:
@@ -19,4 +28,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:06.02
+Time Elapsed 00:00:04.93

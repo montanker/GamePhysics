@@ -12,14 +12,17 @@ using namespace std;
 class Shape
 {
 protected:
-	virtual void init();
+	virtual void init() = 0;
 	float mPosX;
 	float mPosY;
 	float mPosZ;
 
 public:
-	Shape() { init(); };
-	virtual void update();
-	virtual void draw();
+	Shape() {};
+	~Shape() {};
+
+	virtual void update() = 0;
+	virtual void draw() = 0;
+	void setPos(float newX, float newY, float newZ);
 	void move(float moveX, float moveY, float moveZ);
 };
