@@ -7,8 +7,8 @@ Camera::Camera(float fov, float aspectRatio, float nearClip, float farClip, floa
 	mNear = nearClip;
 	mFar = farClip;
 
-	mCamX = mCamY = mCamZ = 0;
-	mCamRotX = mCamRotY = mCamRotZ = 0;
+	mCamPos = Vector3(0,0,0);
+	mCamRotX = mCamRotY = 0;
 	mSpeedX = mSpeedY = mSpeedZ = 0;
 
 	mMoveSpeed = 0.1f;
@@ -20,7 +20,7 @@ Camera::Camera(float fov, float aspectRatio, float nearClip, float farClip, floa
 
 float Camera::degToRad(float angle)
 {
-	return angle * (M_PI/180.0f);
+	return angle * ((float)M_PI/180.0f);
 }
 
 void Camera::handleMouseMove(GLFWwindow* window, float screenWidth, float screenHeight)
@@ -29,11 +29,11 @@ void Camera::handleMouseMove(GLFWwindow* window, float screenWidth, float screen
 	double mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
 
-	int horizontalMovement = mouseX - screenWidth/2;
-	int verticalMovement = mouseY - screenHeight/2;
+	double horizontalMovement = mouseX - screenWidth/2;
+	double verticalMovement = mouseY - screenHeight/2;
 
-	mCamRotX += verticalMovement/mSensitivity;
-	mCamRotY += horizontalMovement/mSensitivity;
+	mCamRotX += (float)verticalMovement/mSensitivity;
+	mCamRotY += (float)horizontalMovement/mSensitivity;
 
 	if (mCamRotX < -90.0f)
 	{
@@ -47,12 +47,10 @@ void Camera::handleMouseMove(GLFWwindow* window, float screenWidth, float screen
 	if (mCamRotY < -180.0f)
 	{
 		mCamRotY += 360.0f;
-		//mCamRotY = 180.0f;
 	}
 	if (mCamRotY > 180.0f)
 	{
 		mCamRotY -= 360.0f;
-		//mCamRotY = -180.0f;
 	}
 
 	glfwSetCursorPos(window, screenWidth/2, screenHeight/2);
@@ -132,35 +130,40 @@ void Camera::handleMovement()
 
 void Camera::setPos(float newX, float newY, float newZ)
 {
-	mCamX = newX;
-	mCamY = newY;
-	mCamZ = newZ;
+	mCamPos = Vector3(newX, newY, newZ);
+}
+
+void Camera::setPos(Vector3 newPos)
+{
+	setPos(newPos.x, newPos.y, newPos.z);
 }
 
 void Camera::press(char key, int isPressed)
 {
+	bool pressed = isPressed != 0;
+
 	switch (key)
 	{
 	case 'w': 
-		mForward = isPressed;
+		mForward = pressed;
 		break;
 	case 's': 
-		mBack = isPressed;
+		mBack = pressed;
 		break;
 	case 'a': 
-		mLeft = isPressed;
+		mLeft = pressed;
 		break;
 	case 'd': 
-		mRight = isPressed;
+		mRight = pressed;
 		break;
 	}
 }
 
 void Camera::move()
 {
-	mCamX += mSpeedX;
-	mCamY += mSpeedY;
-	mCamZ += mSpeedZ;
+	mCamPos.x += mSpeedX;
+	mCamPos.y += mSpeedY;
+	mCamPos.z += mSpeedZ;
 }
 
 void Camera::update(GLFWwindow* window, float screenWidth, float screenHeight)
@@ -176,5 +179,5 @@ void Camera::draw()
 	gluPerspective(mFOV, mRatio, mNear, mFar);
 	glRotatef(mCamRotX, 1.0f, 0.0f, 0.0f);
 	glRotatef(mCamRotY, 0.0f, 1.0f, 0.0f);
-	glTranslatef(-mCamX, -mCamY, -mCamZ);
+	glTranslatef(-mCamPos.x, -mCamPos.y, -mCamPos.z);
 }

@@ -68,6 +68,8 @@ int main(int argc, const char* argv[])
 
 	Cube* cube = new Cube(1.0f, 1.0f, 1.0f);
 	cube->setPos(0.0f, 0.0f, -3.0f);
+	cube->rotate(45.0f, 90.0f, 90.0f, 0.0f);
+	
 
 	float ratio;
 	int width, height;
@@ -81,17 +83,15 @@ int main(int argc, const char* argv[])
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
-	float size = 0.5f;
 
 	while (!glfwWindowShouldClose(window))
 	{
-		camera->update(window, width, height);
+		camera->update(window, (float)width, (float)height);
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		camera->draw();
-		//glRotatef((float) glfwGetTime() * 50.f, 0.0f, 1.0f, 1.0f);
 		
 		glMatrixMode(GL_MODELVIEW);
 		cube->draw();
