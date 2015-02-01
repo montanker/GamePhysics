@@ -1,4 +1,4 @@
-﻿Build started 1/22/2015 7:17:53 PM.
+﻿Build started 1/26/2015 9:05:50 PM.
      1>Project "C:\GamePhysics\Assignment 0\Assignment 0\Assignment 0.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\Assignment 0.unsuccessfulbuild" because "AlwaysCreate" was specified.
@@ -19,4 +19,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:02.40
+Time Elapsed 00:00:06.65
