@@ -42,6 +42,11 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
+void cleanUp()
+{
+	delete(camera);
+}
+
 int main(int argc, const char* argv[])
 {
 	GLFWwindow* window;
