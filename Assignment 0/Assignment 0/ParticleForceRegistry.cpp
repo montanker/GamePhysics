@@ -2,7 +2,8 @@
 
 ParticleForceRegistry::ParticleForceRegistry()
 {
-	mForceRegistrations = Registry();
+	//mForceRegistrations = Registry();
+	mForceRegistrations = vector<ForceRegistration>();
 }
 
 void ParticleForceRegistry::addForce(Particle* newParticle, ParticleForceGenerator* newGenerator)

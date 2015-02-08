@@ -1,3 +1,10 @@
+#pragma once
+
+#include <Windows.h>
+#include <gl/gl.h>
+#include <gl/glu.h>
+
+#include <GLFW/glfw3.h>
 #include "Vector3.h"
 #include <assert.h>
 
@@ -13,7 +20,7 @@ protected:
 	float mDamping;
 	Vector3 mPosition;
 	Vector3 mVelocity;
-	Vector3 mAcceleration;
+	Vector3 mAcceleration; 
 	Vector3 mForceAccumulation;
 public:
 	Particle(){};

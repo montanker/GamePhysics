@@ -12,6 +12,9 @@
 
 #include "Cube.h"
 #include "Camera.h"
+#include "ParticleSystem.h"
+#include "SphereParticle.h"
+#include "EarthGravityGenerator.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -20,6 +23,7 @@
 using namespace std;
 
 Camera* camera;
+ParticleSystem* particleSystem;
 
 static void error_callback(int error, const char* description)
 {
@@ -45,6 +49,7 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 void cleanUp()
 {
 	delete(camera);
+	delete(particleSystem);
 }
 
 int main(int argc, const char* argv[])
@@ -84,6 +89,14 @@ int main(int argc, const char* argv[])
 	camera = new Camera(45.0f, ratio, 0.1f, 100.0f, 5.0f, 5.0f);
 	glfwSetCursorPos(window, width/2, height/2);
 
+	Color red = Color(1, 0, 0);
+	SphereParticle* planet = new SphereParticle(1.0f, 10.0f, red);
+	planet->setPosition(Vector3(0.0f, 0.0f, -5.0f));
+	EarthGravityGenerator* gravGen = new EarthGravityGenerator();
+
+	particleSystem = new ParticleSystem();
+	particleSystem->applyForce(planet, gravGen);
+
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
@@ -92,12 +105,15 @@ int main(int argc, const char* argv[])
 	while (!glfwWindowShouldClose(window))
 	{
 		camera->update(window, (float)width, (float)height);
+		particleSystem->update(0.0f);
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		camera->draw();
 		
+		particleSystem->draw();
+
 		glMatrixMode(GL_MODELVIEW);
 		cube->draw();
 
@@ -107,5 +123,7 @@ int main(int argc, const char* argv[])
 
 	glfwDestroyWindow(window);
 	glfwTerminate();
+	cleanUp();
+
 	exit(EXIT_SUCCESS);
 }
