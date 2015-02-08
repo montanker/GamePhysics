@@ -77,7 +77,7 @@ int main(int argc, const char* argv[])
 	glfwSetKeyCallback(window, key_callback);
 
 	Cube* cube = new Cube(1.0f, 1.0f, 1.0f);
-	cube->setPos(0.0f, 0.0f, -3.0f);
+	cube->setPos(-0.5f, 0.0f, -3.0f);
 	cube->rotate(45.0f, 90.0f, 90.0f, 0.0f);
 	
 
@@ -90,8 +90,8 @@ int main(int argc, const char* argv[])
 	glfwSetCursorPos(window, width/2, height/2);
 
 	Color red = Color(1, 0, 0);
-	SphereParticle* planet = new SphereParticle(1.0f, 10.0f, red);
-	planet->setPosition(Vector3(0.0f, 0.0f, -5.0f));
+	SphereParticle* planet = new SphereParticle(0.5f, 10.0f, red);
+	planet->setPosition(Vector3(1.0f, 0.0f, -3.0f));
 	EarthGravityGenerator* gravGen = new EarthGravityGenerator();
 
 	particleSystem = new ParticleSystem();
@@ -101,20 +101,25 @@ int main(int argc, const char* argv[])
 	glClearDepth(1.0f);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LEQUAL);
+	
+	float totalTime = 0;
 
 	while (!glfwWindowShouldClose(window))
 	{
+		float newTotalTime = glfwGetTime();
+		float deltaTime = newTotalTime - totalTime;
+		totalTime = newTotalTime;
+
 		camera->update(window, (float)width, (float)height);
-		particleSystem->update(0.0f);
+		particleSystem->update(deltaTime);
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		camera->draw();
 		
-		particleSystem->draw();
-
 		glMatrixMode(GL_MODELVIEW);
+		particleSystem->draw();
 		cube->draw();
 
 		glfwSwapBuffers(window);

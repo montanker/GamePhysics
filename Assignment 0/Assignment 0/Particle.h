@@ -13,6 +13,7 @@ class Particle
 protected:
 	void init();
 	void integrate(float duration);
+	void handleAge(float duration);
 	void clearAccumulator();
 
 	float mAge;

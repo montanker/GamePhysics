@@ -27,17 +27,12 @@ void Particle::integrate(float duration)
 
 	mVelocity.addScaledVector(resultingAcc, duration);
 
-	mVelocity =  mVelocity * powf(mDamping, duration);
+	//mVelocity =  mVelocity * powf(mDamping, duration);
 	
 	clearAccumulator();
 }
 
-void Particle::clearAccumulator()
-{
-	mForceAccumulation = Vector3(0,0,0);
-}
-
-void Particle::update(float duration)
+void Particle::handleAge(float duration)
 {
 	if (mAge <= -1)
 	{
@@ -49,6 +44,17 @@ void Particle::update(float duration)
 	{
 		mAge = 0;
 	}
+}
+
+void Particle::clearAccumulator()
+{
+	mForceAccumulation = Vector3(0,0,0);
+}
+
+void Particle::update(float duration)
+{
+	integrate(duration);
+	handleAge(duration);
 }
 
 void Particle::addForce(Vector3 addedForce)
