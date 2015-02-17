@@ -1,0 +1,24 @@
+﻿Build started 2/17/2015 12:33:59 AM.
+     1>Project "C:\GamePhysics\Solar System\TestClass\TestClass.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Touching "Release\TestClass.unsuccessfulbuild".
+       ClCompile:
+         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\include" /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _WINDLL /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /FC /errorReport:prompt unittest1.cpp
+         unittest1.cpp
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\Solar System\SolarSystem\Release\TestClass.dll" /INCREMENTAL /NOLOGO /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\lib" /LIBPATH:..\SolarSystem\Debug SolarSystem.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\Solar System\SolarSystem\Release\TestClass.pdb" /SUBSYSTEM:WINDOWS /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\Solar System\SolarSystem\Release\TestClass.lib" /MACHINE:X86 /SAFESEH /DLL Release\stdafx.obj
+         Release\unittest1.obj
+         "C:\GamePhysics\Solar System\SolarSystem\Release\SolarSystem.lib"
+     1>LINK : warning LNK4075: ignoring '/INCREMENTAL' due to '/LTCG' specification
+         Generating code
+         Finished generating code
+         TestClass.vcxproj -> C:\GamePhysics\Solar System\SolarSystem\Release\TestClass.dll
+       FinalizeBuildStatus:
+         Deleting file "Release\TestClass.unsuccessfulbuild".
+         Touching "Release\TestClass.lastbuildstate".
+     1>Done Building Project "C:\GamePhysics\Solar System\TestClass\TestClass.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:00.99
