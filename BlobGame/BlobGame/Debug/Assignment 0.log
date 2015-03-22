@@ -1,0 +1,37 @@
+﻿Build started 3/21/2015 9:46:47 PM.
+     1>Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Debug\BlobGame.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
+         main.cpp
+     1>c:\gamephysics\blobgame\blobgame\main.cpp(112): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\GamePhysics\BlobGame\BlobGame\Debug\BlobGame.lib" glut32.lib glfw3dll.lib opengl32.lib glu32.lib /LIBPATH:"lib-msvc120" /NOLOGO Debug\Camera.obj
+         Debug\Color.obj
+         Debug\Cube.obj
+         Debug\EarthGravityGenerator.obj
+         Debug\main.obj
+         Debug\Particle.obj
+         Debug\ParticleForceRegistry.obj
+         Debug\ParticleSystem.obj
+         Debug\PlanetaryGravityGenerator.obj
+         Debug\Shape.obj
+         Debug\SolarSystemSim.obj
+         Debug\SphereParticle.obj
+         Debug\Vector3.obj
+     1>glfw3dll.lib(glfw3.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
+     1>glfw3dll.lib(glfw3.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>opengl32.lib(OPENGL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
+     1>opengl32.lib(OPENGL32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+     1>glu32.lib(GLU32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
+     1>glu32.lib(GLU32.dll) : warning LNK4221: This object file does not define any previously undefined public symbols, so it will not be used by any link operation that consumes this library
+         Assignment 0.vcxproj -> C:\GamePhysics\BlobGame\BlobGame\Debug\BlobGame.lib
+       FinalizeBuildStatus:
+         Deleting file "Debug\BlobGame.unsuccessfulbuild".
+         Touching "Debug\BlobGame.lastbuildstate".
+     1>Done Building Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:03.61
