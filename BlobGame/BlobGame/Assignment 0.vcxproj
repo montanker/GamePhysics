@@ -86,7 +86,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleContact.cpp" />
+    <ClCompile Include="ParticleContactResolver.cpp" />
     <ClCompile Include="ParticleForceRegistry.cpp" />
+    <ClCompile Include="ParticleLink.cpp" />
     <ClCompile Include="ParticleSystem.cpp" />
     <ClCompile Include="PlanetaryGravityGenerator.cpp" />
     <ClCompile Include="Shape.cpp" />
@@ -101,9 +103,11 @@
     <ClInclude Include="EarthGravityGenerator.h" />
     <ClInclude Include="Particle.h" />
     <ClInclude Include="ParticleContact.h" />
+    <ClInclude Include="ParticleContactGenerator.h" />
     <ClInclude Include="ParticleContactResolver.h" />
     <ClInclude Include="ParticleForceGenerator.h" />
     <ClInclude Include="ParticleForceRegistry.h" />
+    <ClInclude Include="ParticleLink.h" />
     <ClInclude Include="ParticleSystem.h" />
     <ClInclude Include="PlanetaryGravityGenerator.h" />
     <ClInclude Include="Shape.h" />

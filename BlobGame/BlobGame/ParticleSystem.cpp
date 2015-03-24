@@ -4,7 +4,11 @@ ParticleSystem::ParticleSystem()
 {
 	mParticleSet = vector<Particle*>();
 	mParticleForceRegistry = vector<ParticleForceGenerator*>();
+	mContactGenerators = vector<ParticleContactGenerator*>();
+	mContactResolver = ParticleContactResolver(0);
+	mParticleContacts = new ParticleContact;
 	registry = ParticleForceRegistry();
+	mMaxContacts = 99;
 }
 
 ParticleSystem::~ParticleSystem()
@@ -38,6 +42,18 @@ void ParticleSystem::update(float duration)
 	}
 
 	registry.updateForces(duration);
+
+	unsigned usedContacts = generateContacts();
+
+	if (usedContacts)
+	{
+		bool calculateIterations = true;  //<-- The hell is this supposed to be?
+		if (calculateIterations)  
+		{
+			mContactResolver.setIterations(usedContacts * 2);
+		}
+		mContactResolver.resolveContacts(mParticleContacts, usedContacts, duration);
+	}
 }
 
 void ParticleSystem::draw()
@@ -93,4 +109,26 @@ void ParticleSystem::applyForce(Particle* particle1, Particle* particle2, Partic
 	}
 
 	registry.addForce(particle1, particle2, force);
+}
+
+unsigned ParticleSystem::generateContacts()
+{
+	unsigned limit = mMaxContacts;
+	ParticleContact *nextContact = mParticleContacts;
+
+	vector<ParticleContactGenerator*>::iterator g;
+
+	for(g = mContactGenerators.begin(); g != mContactGenerators.end(); g++)
+	{
+		unsigned used = (*g)->addContact(nextContact, limit);
+		limit -= used;
+		nextContact += used;
+
+		if (limit <= 0)
+		{
+			break;
+		}
+	}
+
+	return mMaxContacts - limit;
 }

@@ -4,17 +4,20 @@ class ParticleContact
 {
 public:
 	ParticleContact(){};
+	double calculateSeparatingVelocity();
+	void resolve(float duration);
 
 	Particle* mParticle[2];
 	Vector3 mParticleMovement[2];
 	double mRestitution;
 	double mPenetration;
 	Vector3 mContactNormal;
+	
 
 protected:
 	void init();
-	void resolve(float duration);
-	double calculateSeparatingVelocity();
+	//void resolve(float duration);
+	//double calculateSeparatingVelocity();
 
 private:
 	void resolveVelocity(float duration);

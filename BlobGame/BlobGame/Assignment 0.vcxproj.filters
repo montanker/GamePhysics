@@ -57,6 +57,12 @@
     <ClCompile Include="ParticleContact.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ParticleContactResolver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ParticleLink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -102,6 +108,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ParticleContactResolver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleContactGenerator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ParticleLink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

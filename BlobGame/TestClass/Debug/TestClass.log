@@ -1,7 +1,8 @@
-﻿Build started 2/17/2015 12:03:01 AM.
-     1>Project "C:\GamePhysics\Solar System\TestClass\TestClass.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 3/24/2015 12:28:34 AM.
+     1>Project "C:\GamePhysics\BlobGame\TestClass\TestClass.vcxproj" on node 2 (Rebuild target(s)).
      1>_PrepareForClean:
          Deleting file "Debug\TestClass.lastbuildstate".
+     1>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets(1422,5): warning : The referenced project '..\SolarSystem\Assignment 0.vcxproj' does not exist.
        InitializeBuildStatus:
          Creating "Debug\TestClass.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
@@ -9,17 +10,9 @@
          stdafx.cpp
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\include" /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDLL /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\TestClass.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /FC /errorReport:prompt unittest1.cpp
          unittest1.cpp
-       Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\Solar System\SolarSystem\Debug\TestClass.dll" /INCREMENTAL /NOLOGO /LIBPATH:..\SolarSystem\Debug /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\UnitTest\lib" SolarSystem.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\Solar System\SolarSystem\Debug\TestClass.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\Solar System\SolarSystem\Debug\TestClass.lib" /MACHINE:X86 /DLL Debug\stdafx.obj
-         Debug\unittest1.obj
-         "C:\GamePhysics\Solar System\SolarSystem\Debug\SolarSystem.lib"
-            Creating library C:\GamePhysics\Solar System\SolarSystem\Debug\TestClass.lib and object C:\GamePhysics\Solar System\SolarSystem\Debug\TestClass.exp
-         TestClass.vcxproj -> C:\GamePhysics\Solar System\SolarSystem\Debug\TestClass.dll
-       FinalizeBuildStatus:
-         Deleting file "Debug\TestClass.unsuccessfulbuild".
-         Touching "Debug\TestClass.lastbuildstate".
-     1>Done Building Project "C:\GamePhysics\Solar System\TestClass\TestClass.vcxproj" (Rebuild target(s)).
+     1>c:\gamephysics\blobgame\testclass\unittest1.cpp(3): fatal error C1083: Cannot open include file: '../SolarSystem/Vector3.h': No such file or directory
+     1>Done Building Project "C:\GamePhysics\BlobGame\TestClass\TestClass.vcxproj" (Rebuild target(s)) -- FAILED.
 
-Build succeeded.
+Build FAILED.
 
-Time Elapsed 00:00:02.11
+Time Elapsed 00:00:05.03
