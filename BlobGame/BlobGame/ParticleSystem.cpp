@@ -74,6 +74,11 @@ void ParticleSystem::addForce(ParticleForceGenerator* newForce)
 	mParticleForceRegistry.push_back(newForce);
 }
 
+void ParticleSystem::addContact(ParticleContactGenerator* newContact)
+{
+	mContactGenerators.push_back(newContact);
+}
+
 void ParticleSystem::applyForce(Particle* particle, ParticleForceGenerator* force)
 {
 	//Check if sets already contain particle and force.  If not, add them.
@@ -109,6 +114,31 @@ void ParticleSystem::applyForce(Particle* particle1, Particle* particle2, Partic
 	}
 
 	registry.addForce(particle1, particle2, force);
+}
+
+void ParticleSystem::applyContact(Particle* particle1, Particle* particle2, ParticleContactGenerator* contact)
+{
+	if (find(mParticleSet.begin(), mParticleSet.end(),particle1) == mParticleSet.end())
+	{
+		addParticle(particle1);
+	}
+
+	if (find(mParticleSet.begin(), mParticleSet.end(),particle2) == mParticleSet.end())
+	{
+		addParticle(particle2);
+	}
+
+	if (find(mContactGenerators.begin(), mContactGenerators.end(), contact) == mContactGenerators.end())
+	{
+		addContact(contact);
+	}
+
+	ParticleContact* particleContact = new ParticleContact();
+	particleContact->init();
+	particleContact->mParticle[0] = particle1;
+	particleContact->mParticle[1] = particle2;
+	contact->addContact(particleContact, 0);
+	//registry.addForce(particle1, particle2, contact);
 }
 
 unsigned ParticleSystem::generateContacts()

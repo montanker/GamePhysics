@@ -63,6 +63,12 @@
     <ClCompile Include="ParticleLink.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="RectParticle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BlobGameSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Shape.h">
@@ -114,6 +120,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ParticleLink.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RectParticle.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BlobGameSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

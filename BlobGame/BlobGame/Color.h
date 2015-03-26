@@ -1,3 +1,5 @@
+#ifndef COLOR_H
+#define COlOR_H
 
 class Color
 {
@@ -11,3 +13,5 @@ public:
 	float b;
 	float a;
 };
+
+#endif

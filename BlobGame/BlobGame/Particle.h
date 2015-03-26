@@ -1,4 +1,6 @@
-#pragma once
+
+#ifndef PARTICLE_H
+#define PARTICLE_H
 
 #include <Windows.h>
 #include <gl/gl.h>
@@ -7,6 +9,7 @@
 #include <GLFW/glfw3.h>
 #include "Vector3.h"
 #include <assert.h>
+#include "Color.h"
 
 class Particle
 {
@@ -58,3 +61,5 @@ public:
 	
 	virtual void draw() = 0;
 };
+
+#endif
