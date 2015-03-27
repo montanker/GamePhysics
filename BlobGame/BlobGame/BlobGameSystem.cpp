@@ -12,6 +12,9 @@ BlobGameSystem::BlobGameSystem(Camera* camera)
 
 	createObjects();
 	initBlobs();
+	initBlocks();
+	applyForces();
+	applyContacts();
 
 	mCamera->savePos();
 }
@@ -28,16 +31,18 @@ void BlobGameSystem::cleanUp()
 
 void BlobGameSystem::createObjects()
 {
-	Blob* player = createBlob("Player", Color(0, 1, 0), 3, 1, Vector3(0, 20, 0));
+	Blob* player = createBlob("Player", Color(0, 1, 0), 3, 1, Vector3(10, 15, 0));
+	Blob* enemy = createBlob("Enemy", Color(1, 0, 0), 3, 1, Vector3(-10, 20, 0));
 
 	mBlobs.push_back(player);
+	mBlobs.push_back(enemy);
 
 	Block* floor = createBlock("Floor", Color(0.2f, 0.2f, 0.2f), 100, 100, 1, -1, Vector3(0,0,0));
 
 	mBlocks.push_back(floor);
 
-	applyForces();
-	applyContacts();
+	//applyForces();
+	//applyContacts();
 }
 
 Blob* BlobGameSystem::createBlob(string name, Color color, double size, double mass, Vector3 pos)
@@ -73,17 +78,50 @@ void BlobGameSystem::applyForces()
 	{
 		mParticleSystem->applyForce((*blobIt)->particle, earthGrav);
 	}
-
-	
 }
 
 void BlobGameSystem::applyContacts()
 {
+	//mParticleSystem->addParticle(mBlocks[0]->particle);
+
+	/*ParticleCable* cable = new ParticleCable();
+	cable->maxLength = 15;
+	cable->restitution = 0.3f;
+
+	cable->particle[0] = mBlocks[0]->particle;
+	cable->particle[1] = mBlobs[1]->particle;
+	mParticleSystem->addContact(cable);
+
+	ParticleCable* cable2 = new ParticleCable();
+	cable2->maxLength = 15;
+	cable2->restitution = 0.3f;
+
+	cable2->particle[0] = mBlocks[0]->particle;
+	cable2->particle[1] = mBlobs[1]->particle;
+	mParticleSystem->addContact(cable2);*/
+	
+	/*mParticleSystem->addParticle(mBlocks[0]->particle);
+	GroundContactGenerator* groundGen = new GroundContactGenerator();
+	groundGen->ground = mBlocks[0]->particle;
+	groundGen->other = mBlobs[1]->particle;
+	groundGen->radius = mBlobs[1]->particle->getRadius();
+	mParticleSystem->addContact(groundGen);*/
+
 	vector<Block*>::iterator blockIt = mBlocks.begin();
 
 	for (blockIt; blockIt != mBlocks.end(); ++blockIt)
 	{
-		//mParticleSystem->addParticle((*blockIt)->particle);
+		mParticleSystem->addParticle((*blockIt)->particle);
+		vector<Blob*>::iterator blobIt = mBlobs.begin();
+		for (blobIt; blobIt != mBlobs.end(); ++blobIt)
+		{
+			GroundContactGenerator* groundGen = new GroundContactGenerator();
+			groundGen->ground = (*blockIt)->particle;
+			groundGen->other = (*blobIt)->particle;
+			groundGen->radius = (*blobIt)->particle->getRadius();
+			//mParticleSystem->applyContact((*blobIt)->particle, (*blockIt)->particle, groundGen);
+			mParticleSystem->addContact(groundGen);
+		}
 	}
 }
 
@@ -136,6 +174,17 @@ void BlobGameSystem::initBlobs()
 	{
 		(*blobIt)->particle->setPosition((*blobIt)->startPosition);
 		(*blobIt)->particle->setVelocity(Vector3(0,0,0));
+	}
+}
+
+void BlobGameSystem::initBlocks()
+{
+	vector<Block*>::iterator blockIt = mBlocks.begin();
+
+	for (blockIt; blockIt != mBlocks.end(); ++blockIt)
+	{
+		(*blockIt)->particle->setPosition((*blockIt)->startPosition);
+		(*blockIt)->particle->setVelocity(Vector3(0,0,0));
 	}
 }
 

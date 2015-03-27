@@ -2,6 +2,8 @@
 #include "SphereParticle.h"
 #include "RectParticle.h"
 #include "EarthGravityGenerator.h"
+#include "ParticleLink.h"
+#include "GroundContactGenerator.h"
 #include "Camera.h"
 
 #include "GLUT\glut.h"
@@ -55,6 +57,7 @@ public:
 	~BlobGameSystem();
 
 	void initBlobs();
+	void initBlocks();
 	void press(char key, int isPressed);
 	void update(float duration);
 	void draw();

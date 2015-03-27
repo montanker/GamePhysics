@@ -6,7 +6,8 @@ ParticleSystem::ParticleSystem()
 	mParticleForceRegistry = vector<ParticleForceGenerator*>();
 	mContactGenerators = vector<ParticleContactGenerator*>();
 	mContactResolver = ParticleContactResolver(0);
-	mParticleContacts = new ParticleContact;
+	//mParticleContacts = new ParticleContact;
+	mParticleContacts = vector<ParticleContact*>();
 	registry = ParticleForceRegistry();
 	mMaxContacts = 99;
 }
@@ -52,7 +53,15 @@ void ParticleSystem::update(float duration)
 		{
 			mContactResolver.setIterations(usedContacts * 2);
 		}
+		//mContactResolver.resolveContacts(mParticleContacts, usedContacts, duration);
 		mContactResolver.resolveContacts(mParticleContacts, usedContacts, duration);
+
+		vector<ParticleContact*>::iterator contactIt = mParticleContacts.begin();
+		for (contactIt; contactIt != mParticleContacts.end(); ++contactIt)
+		{
+			delete(*contactIt);
+		}
+		mParticleContacts.clear();
 	}
 }
 
@@ -128,31 +137,38 @@ void ParticleSystem::applyContact(Particle* particle1, Particle* particle2, Part
 		addParticle(particle2);
 	}
 
-	if (find(mContactGenerators.begin(), mContactGenerators.end(), contact) == mContactGenerators.end())
+	addContact(contact);
+	/*if (find(mContactGenerators.begin(), mContactGenerators.end(), contact) == mContactGenerators.end())
 	{
 		addContact(contact);
-	}
+	}*/
 
-	ParticleContact* particleContact = new ParticleContact();
-	particleContact->init();
-	particleContact->mParticle[0] = particle1;
-	particleContact->mParticle[1] = particle2;
-	contact->addContact(particleContact, 0);
+	//ParticleContact* particleContact = new ParticleContact();
+	//particleContact->init();
+	//particleContact->mParticle[0] = particle1;
+	//particleContact->mParticle[1] = particle2;
+	//contact->addContact(particleContact, 0);
 	//registry.addForce(particle1, particle2, contact);
 }
 
 unsigned ParticleSystem::generateContacts()
 {
 	unsigned limit = mMaxContacts;
-	ParticleContact *nextContact = mParticleContacts;
+	//ParticleContact *nextContact = mParticleContacts;
 
 	vector<ParticleContactGenerator*>::iterator g;
 
 	for(g = mContactGenerators.begin(); g != mContactGenerators.end(); g++)
 	{
+		ParticleContact* nextContact = new ParticleContact();
+		nextContact->init();
 		unsigned used = (*g)->addContact(nextContact, limit);
 		limit -= used;
-		nextContact += used;
+		if (used > 0)
+		{
+			mParticleContacts.push_back(nextContact);
+		}
+		//nextContact += used;
 
 		if (limit <= 0)
 		{

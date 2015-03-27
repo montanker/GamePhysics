@@ -12,7 +12,8 @@ private:
 	vector<ParticleForceGenerator*> mParticleForceRegistry;
 	vector<ParticleContactGenerator*> mContactGenerators;
 	ParticleContactResolver mContactResolver;
-	ParticleContact* mParticleContacts;
+	//ParticleContact* mParticleContacts;
+	vector<ParticleContact*> mParticleContacts;
 	unsigned mMaxContacts;
 public:
 	ParticleSystem();

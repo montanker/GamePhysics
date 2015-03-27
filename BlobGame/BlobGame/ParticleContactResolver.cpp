@@ -17,7 +17,8 @@ void ParticleContactResolver::setIterations(unsigned iterations)
 	mIterations = iterations;
 }
 
-void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, unsigned numContacts, float duration)
+//void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, unsigned numContacts, float duration)
+void ParticleContactResolver::resolveContacts(vector<ParticleContact*> contactArray, unsigned numContacts, float duration)
 {
 	unsigned i;
 	mIterationsUsed = 0;
@@ -29,8 +30,10 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
 
 		for (i=0; i<numContacts; i++)
 		{
-			double sepVel = contactArray[i].calculateSeparatingVelocity();
-			if ((sepVel < max) && ((sepVel < 0) || (contactArray[i].mPenetration > 0)))
+			//double sepVel = contactArray[i].calculateSeparatingVelocity();
+			double sepVel = contactArray[i]->calculateSeparatingVelocity();
+			//if ((sepVel < max) && ((sepVel < 0) || (contactArray[i].mPenetration > 0)))
+			if ((sepVel < max) && ((sepVel < 0) || (contactArray[i]->mPenetration > 0)))
 			{
 				max = sepVel;
 				maxIndex = i;
@@ -42,7 +45,8 @@ void ParticleContactResolver::resolveContacts(ParticleContact *contactArray, uns
 			break;
 		}
 
-		contactArray[maxIndex].resolve(duration);
+		//contactArray[maxIndex].resolve(duration);
+		contactArray[maxIndex]->resolve(duration);
 		mIterationsUsed++;
 	}
 }
