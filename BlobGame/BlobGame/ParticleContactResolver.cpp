@@ -30,6 +30,11 @@ void ParticleContactResolver::resolveContacts(vector<ParticleContact*> contactAr
 
 		for (i=0; i<numContacts; i++)
 		{
+			if (!contactArray[i]->use)
+			{
+				continue;
+			}
+
 			//double sepVel = contactArray[i].calculateSeparatingVelocity();
 			double sepVel = contactArray[i]->calculateSeparatingVelocity();
 			//if ((sepVel < max) && ((sepVel < 0) || (contactArray[i].mPenetration > 0)))

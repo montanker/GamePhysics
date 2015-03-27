@@ -33,10 +33,14 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 	int ispress = action != GLFW_RELEASE;
     switch(key) {
-        case GLFW_KEY_W: camera->press('w',ispress); break;
-        case GLFW_KEY_S: camera->press('s',ispress); break;
-        case GLFW_KEY_A: camera->press('a',ispress); break;
-        case GLFW_KEY_D: camera->press('d',ispress); break;
+        //case GLFW_KEY_W: camera->press('w',ispress); break;
+        //case GLFW_KEY_S: camera->press('s',ispress); break;
+        //case GLFW_KEY_A: camera->press('a',ispress); break;
+        //case GLFW_KEY_D: camera->press('d',ispress); break;
+		case GLFW_KEY_W: blobGame->press('w',ispress); break;
+		case GLFW_KEY_S: blobGame->press('s',ispress); break;
+		case GLFW_KEY_A: blobGame->press('a',ispress); break;
+		case GLFW_KEY_D: blobGame->press('d',ispress); break;
 		case GLFW_KEY_R: blobGame->press('r',ispress); break;
 		case GLFW_KEY_F: blobGame->press('f',ispress); break;
     }
@@ -78,8 +82,8 @@ int main(int argc, const char* argv[])
 	ratio = width / (float) height;
 
 	camera = new Camera(45.0f, ratio, 0.1f, powf(10,8), 5.0f, 5);
-	camera->setPos(0, 10, 50);
-	camera->setRot(0, 0, 0);
+	camera->setPos(0, 60, 100);
+	camera->setRot(30, 0, 0);
 	glfwSetCursorPos(window, width/2, height/2);
 
 	blobGame = new BlobGameSystem(camera);
@@ -100,7 +104,6 @@ int main(int argc, const char* argv[])
 		float newTotalTime = glfwGetTime();
 		float deltaTime = newTotalTime - totalTime;
 		totalTime = newTotalTime;
-		cout << deltaTime << endl;
 
 		camera->update(window, (float)width, (float)height);
 

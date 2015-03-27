@@ -7,6 +7,28 @@ void ParticleContact::init()
 	mParticleMovement[0] = Vector3(0,0,0);
 	mParticleMovement[1] = Vector3(0,0,0);
 	mContactNormal = Vector3(0,0,0);
+	drawLine = false;
+	color = CONTACT_COLOR;
+}
+
+void ParticleContact::draw()
+{
+	if (!drawLine)
+	{
+		return;
+	}
+
+	glLoadIdentity();
+	glPushMatrix();
+	glLineWidth(CONTACT_WIDTH);
+	glBegin(GL_LINES);
+		glColor3f(color.r, color.g, color.b);
+		Vector3 pos1 = mParticle[0]->getPosition();
+		Vector3 pos2 = mParticle[1]->getPosition();
+		glVertex3f(pos1.x, pos1.y, pos1.z);
+		glVertex3f(pos2.x, pos2.y, pos2.z);
+	glEnd();
+	glPopMatrix();
 }
 
 void ParticleContact::resolve(float duration)
@@ -104,6 +126,9 @@ void ParticleContact::resolveInterpenetration(float duration)
 	{
 		mParticleMovement[1] = Vector3(0,0,0);
 	}
+
+	mParticleMovement[0] = mParticleMovement[0] * duration;
+	mParticleMovement[1] = mParticleMovement[1] * duration;
 
 	mParticle[0]->setPosition(mParticle[0]->getPosition() + mParticleMovement[0]);
 	if (mParticle[1])

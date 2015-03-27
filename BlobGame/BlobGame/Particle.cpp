@@ -11,6 +11,9 @@ void Particle::init()
 	mVelocity = Vector3(0,0,0);
 	mAcceleration = Vector3(0,0,0);
 	mForceAccumulation = Vector3(0,0,0);
+
+	mLimitVelocity = false;
+	mMaxVelocity = Vector3(99, 99, 99);
 }
 
 void Particle::integrate(float duration)
@@ -29,7 +32,38 @@ void Particle::integrate(float duration)
 
 	mVelocity.addScaledVector(resultingAcc, duration);
 
-	//mVelocity =  mVelocity * powf(mDamping, duration);
+	if (mLimitVelocity)
+	{
+		if (mMaxVelocity.x < 0)
+		{
+			if (mVelocity.x < mMaxVelocity.x)
+			{
+				mVelocity.x = mMaxVelocity.x;
+			}
+		}
+		else if (mMaxVelocity.x > 0)
+		{
+			if (mVelocity.x > mMaxVelocity.x)
+			{
+				mVelocity.x = mMaxVelocity.x;
+			}
+		}
+
+		if (mMaxVelocity.z < 0)
+		{
+			if (mVelocity.z < mMaxVelocity.z)
+			{
+				mVelocity.z = mMaxVelocity.z;
+			}
+		}
+		else if (mMaxVelocity.z > 0)
+		{
+			if (mVelocity.z > mMaxVelocity.z)
+			{
+				mVelocity.z = mMaxVelocity.z;
+			}
+		}
+	}
 	
 	clearAccumulator();
 }
@@ -62,6 +96,17 @@ void Particle::update(float duration)
 void Particle::addForce(Vector3 addedForce)
 {
 	mForceAccumulation = mForceAccumulation + addedForce;
+}
+
+void Particle::limitVelocity(bool shouldLimit)
+{
+	mLimitVelocity = shouldLimit;
+}
+
+void Particle::limitVelocity(bool shouldLimit, Vector3 limit)
+{
+	mLimitVelocity = shouldLimit;
+	mMaxVelocity = limit;
 }
 
 double Particle::getInverseMass()

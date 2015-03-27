@@ -5,6 +5,7 @@ class ParticleLink: public ParticleContactGenerator
 public:
 	virtual unsigned addContact(ParticleContact* contact, unsigned limit) = 0;
 	Particle* particle[2];
+	Color lineColor;
 
 protected:
 	double currentLength();

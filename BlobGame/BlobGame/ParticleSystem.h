@@ -14,6 +14,7 @@ private:
 	ParticleContactResolver mContactResolver;
 	//ParticleContact* mParticleContacts;
 	vector<ParticleContact*> mParticleContacts;
+	vector<ParticleContact*> mDrawContacts;
 	unsigned mMaxContacts;
 public:
 	ParticleSystem();

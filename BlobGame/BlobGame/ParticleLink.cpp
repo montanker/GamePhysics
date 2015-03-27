@@ -1,4 +1,7 @@
 #include "ParticleLink.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
 
 double ParticleLink::currentLength()
 {
@@ -10,13 +13,17 @@ unsigned ParticleCable::addContact(ParticleContact* contact, unsigned limit)
 {
 	double length = currentLength();
 
+	contact->drawLine = true;
+	contact->color = lineColor;
+	contact->mParticle[0] = particle[0];
+	contact->mParticle[1] = particle[1];
+
 	if (length < maxLength)
 	{
 		return 0;
 	}
 
-	contact->mParticle[0] = particle[0];
-	contact->mParticle[1] = particle[1];
+	
 
 	Vector3 normal = particle[1]->getPosition() - particle[0]->getPosition();
 	normal.normalize();
@@ -31,13 +38,16 @@ unsigned ParticleCable::addContact(ParticleContact* contact, unsigned limit)
 unsigned ParticleRod::addContact(ParticleContact* contact, unsigned limit)
 {
 	double currentLen = currentLength();
+
+	contact->drawLine = true;
+	contact->color = lineColor;
+	contact->mParticle[0] = particle[0];
+	contact->mParticle[1] = particle[1];
+
 	if (currentLen == length)
 	{
 		return 0;
 	}
-	
-	contact->mParticle[0] = particle[0];
-	contact->mParticle[1] = particle[1];
 
 	Vector3 normal = particle[1]->getPosition() - particle[0]->getPosition();
 	normal.normalize();
@@ -54,7 +64,7 @@ unsigned ParticleRod::addContact(ParticleContact* contact, unsigned limit)
 	}
 
 	//Rods have no bounciness
-	contact->mRestitution = 0;
+	contact->mRestitution = 0.0f;
 
 	return 1;
 }

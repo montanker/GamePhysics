@@ -1,12 +1,15 @@
-﻿Build started 3/27/2015 12:30:51 AM.
+﻿Build started 3/27/2015 5:42:48 PM.
      1>Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
          Creating "Debug\BlobGame.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlobGameSystem.cpp
-         BlobGameSystem.cpp
-     1>c:\gamephysics\blobgame\blobgame\blobgamesystem.cpp(159): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt GroundContactGenerator.cpp ParticleSystem.cpp
+     1>cl : Command line warning D9028: minimal rebuild failure, reverting to normal build
+         GroundContactGenerator.cpp
+     1>c:\gamephysics\blobgame\blobgame\groundcontactgenerator.cpp(8): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\gamephysics\blobgame\blobgame\groundcontactgenerator.cpp(9): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         ParticleSystem.cpp
+         Generating Code...
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\GamePhysics\BlobGame\BlobGame\Debug\BlobGame.lib" glut32.lib glfw3dll.lib opengl32.lib glu32.lib /LIBPATH:"lib-msvc120" /NOLOGO Debug\BlobGameSystem.obj
          Debug\Camera.obj
@@ -41,4 +44,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:05.18
+Time Elapsed 00:00:08.65

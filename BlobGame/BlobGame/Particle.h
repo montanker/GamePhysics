@@ -28,11 +28,16 @@ protected:
 	Vector3 mVelocity;
 	Vector3 mAcceleration; 
 	Vector3 mForceAccumulation;
+
+	bool mLimitVelocity;
+	Vector3 mMaxVelocity;
 public:
 	Particle(){};
 
 	void update(float duration);
 	void addForce(Vector3 addedForce);
+	void limitVelocity(bool shouldLimit);
+	void limitVelocity(bool shouldLimit, Vector3 limit);
 	double getInverseMass();
 	bool isDead();
 
