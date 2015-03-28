@@ -82,7 +82,7 @@ int main(int argc, const char* argv[])
 	ratio = width / (float) height;
 
 	camera = new Camera(45.0f, ratio, 0.1f, powf(10,8), 5.0f, 5);
-	camera->setPos(0, 60, 100);
+	camera->setPos(0, 80, 140);
 	camera->setRot(30, 0, 0);
 	glfwSetCursorPos(window, width/2, height/2);
 

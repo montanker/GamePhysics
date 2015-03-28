@@ -10,7 +10,7 @@ ParticleSystem::ParticleSystem()
 	mParticleContacts = vector<ParticleContact*>();
 	mDrawContacts = vector<ParticleContact*>();
 	registry = ParticleForceRegistry();
-	mMaxContacts = 99;
+	mMaxContacts = 9999;
 }
 
 ParticleSystem::~ParticleSystem()
@@ -66,9 +66,11 @@ void ParticleSystem::draw()
 		mParticleSet[i]->draw();
 	}
 
-	for (size_t j=0; j<mParticleContacts.size(); j++)
+	//for (size_t j=0; j<mParticleContacts.size(); j++)
+	for (size_t j=0; j<mDrawContacts.size(); j++)
 	{
-		mParticleContacts[j]->draw();
+		//mParticleContacts[j]->draw();
+		mDrawContacts[j]->draw();
 	}
 }
 
@@ -162,6 +164,16 @@ unsigned ParticleSystem::generateContacts()
 	}
 	mParticleContacts.clear();
 
+	/*vector<ParticleContact*>::iterator drawIt = mDrawContacts.begin();
+	for (drawIt; drawIt != mDrawContacts.end(); ++drawIt)
+	{
+		if (*drawIt != NULL)
+		{
+			delete(*drawIt);
+		}
+	}*/
+	mDrawContacts.clear();
+
 	vector<ParticleContactGenerator*>::iterator g;
 
 	for(g = mContactGenerators.begin(); g != mContactGenerators.end(); g++)
@@ -170,7 +182,12 @@ unsigned ParticleSystem::generateContacts()
 		nextContact->init();
 		unsigned used = (*g)->addContact(nextContact, limit);
 		limit -= used;
+		if (nextContact->drawLine)
+		{
+			mDrawContacts.push_back(nextContact);
+		}
 		//nextContact->use = (used > 0);
+		//mParticleContacts.push_back(nextContact);
 		if (used > 0)
 		{
 			nextContact->use = true;

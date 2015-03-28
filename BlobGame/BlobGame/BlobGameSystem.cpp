@@ -7,11 +7,13 @@ BlobGameSystem::BlobGameSystem(Camera* camera)
 	mCanDebug = true;
 	mCamera = camera;
 	mBlobs = vector<Blob*>();
+	mArms = vector<Arm*>();
 	mBlocks = vector<Block*>();
 	mParticleSystem = new ParticleSystem();
 
-	createObjects();
+	createLevel();
 	initBlobs();
+	initArms();
 	initBlocks();
 	applyForces();
 	applyContacts();
@@ -29,9 +31,86 @@ void BlobGameSystem::cleanUp()
 	delete(mParticleSystem);
 }
 
-void BlobGameSystem::createObjects()
+void BlobGameSystem::createLevel()
 {
-	Blob* player = createBlob("Player", Color(0, 1, 0), 3, 2, Vector3(0, 15, 0));
+	ifstream levelFile;
+	string line;
+	string::size_type sz;
+	float tileSize = 12;
+	float tilesHor = 13;
+	float tilesVer = 13;
+
+	levelFile.open("levelLayout.txt");
+
+	if (levelFile.is_open())
+	{
+		getline(levelFile, line);
+		tilesHor = stof(line,&sz);
+
+		getline(levelFile, line);
+		tilesVer = stof(line,&sz);
+
+		getline(levelFile, line);
+		tileSize = stof(line,&sz);
+
+		int row=0;
+		int col;
+		char letter;
+		double xOffset = tileSize*(tilesHor/2);
+		double zOffset = tileSize*(tilesVer/2);
+		while(getline(levelFile, line))
+		{
+			for (col=0; col<tilesHor; col++)
+			{
+				letter = line[col];
+				Vector3 createPos = Vector3(col*tileSize-xOffset, tileSize*2, row*tileSize-zOffset);
+				switch(letter)
+				{
+				case 'p':
+					{
+						Blob* player = createBlob("Player", Color(0, 1, 0), tileSize/2, 2, createPos);
+						mPlayer = player;
+						mPlayer->particle->limitVelocity(true, Vector3(100,100,100));
+						mPlayerSpeed = 100;
+						arms = 0;
+						mBlobs.push_back(player);
+					}
+					break;
+				case 'a':
+					{
+						Arm* arm = createArm("Arm", Color(0, 0.75f, 0), tileSize/4, 1, createPos);
+						mArms.push_back(arm);
+					}
+					break;
+				case 'c':
+					createCube("Cube", Color(0.4f, 0.4f, 0.4f), 1.0f, 300, tileSize, createPos);
+					break;
+				case 't':
+					createPyramid("Pyramid", Color(0.4f, 0.4f, 0.4f), 1.0f, 300, tileSize, createPos);
+					break;
+				case 'd':
+					createDiamond("Diamond", Color(0.4f, 0.4f, 0.4f), 1.0f, 300, tileSize, createPos);
+					break;
+				}
+			}
+			row++;
+		}
+
+		Block* floor = createBlock("Floor", Color(0.2f, 0.2f, 0.2f), tileSize*tilesHor, tileSize*tilesVer, 1, -1, Vector3(0,0,0));
+		mBlocks.push_back(floor);
+
+		levelFile.close();
+	}
+	else
+	{
+		cout << "Level file not found" << endl;
+	}
+
+	/*tileSize = 12;
+	tilesHor = 13;
+	tilesVer = 13;
+
+	Blob* player = createBlob("Player", Color(0, 1, 0), tileSize/2, 2, Vector3(0, 15, 0));
 	Blob* arm1 = createBlob("Arm1", Color(0, 0.75f, 0), 2, 0.1f, Vector3(10, 20, -10));
 	Blob* arm2 = createBlob("Arm2", Color(0, 0.75f, 0), 2, 0.1f, Vector3(-10, 20, -10));
 	Blob* arm3 = createBlob("Arm3", Color(0, 0.75f, 0), 2, 0.1f, Vector3(0, 20, 10));
@@ -52,10 +131,9 @@ void BlobGameSystem::createObjects()
 	//createCube("Cube1", Color(1,0,0), 2, 1, 10, Vector3(20, 20, 0));
 	//createDiamond("Diamond1", Color(1,0,0), 2, 1, 10, Vector3(0, 20, 0));
 
-	Block* floor = createBlock("Floor", Color(0.2f, 0.2f, 0.2f), 100, 100, 1, -1, Vector3(0,0,0));
+	Block* floor = createBlock("Floor", Color(0.2f, 0.2f, 0.2f), tileSize*tilesHor, tileSize*tilesVer, 1, -1, Vector3(0,0,0));
 
-	mBlocks.push_back(floor);
-
+	mBlocks.push_back(floor);*/
 	
 	//applyForces();
 	//applyContacts();
@@ -70,6 +148,18 @@ Blob* BlobGameSystem::createBlob(string name, Color color, double size, double m
 	blob->startPosition = pos;
 
 	return blob;
+}
+
+Arm* BlobGameSystem::createArm(string name, Color color, double size, double mass, Vector3 pos)
+{
+	Arm* arm = new Arm();
+	arm->name = name;
+	arm->color = color;
+	arm->particle = new SphereParticle(size, mass, arm->color);
+	arm->connected = false;
+	arm->startPosition = pos;
+
+	return arm;
 }
 
 Block* BlobGameSystem::createBlock(string name, Color color, float width, float length, float height, double mass, Vector3 pos)
@@ -205,24 +295,17 @@ void BlobGameSystem::applyForces()
 	{
 		mParticleSystem->applyForce((*blobIt)->particle, earthGrav);
 	}
+
+	vector<Arm*>::iterator armIt = mArms.begin();
+
+	for (armIt; armIt != mArms.end(); ++armIt)
+	{
+		mParticleSystem->applyForce((*armIt)->particle, earthGrav);
+	}
 }
 
 void BlobGameSystem::applyContacts()
 {
-	/*ParticleRod* rod = new ParticleRod();
-	rod->length = 20;
-
-	rod->particle[0] = mBlobs[0]->particle;
-	rod->particle[1] = mBlobs[1]->particle;
-	mParticleSystem->addContact(rod);*/
-	/*ParticleCable* cable = new ParticleCable();
-	cable->maxLength = 15;
-	cable->restitution = 0.3f;
-
-	cable->particle[0] = mBlocks[0]->particle;
-	cable->particle[1] = mBlobs[1]->particle;
-	mParticleSystem->addContact(cable);*/
-
 	vector<Block*>::iterator blockIt = mBlocks.begin();
 
 	for (blockIt; blockIt != mBlocks.end(); ++blockIt)
@@ -235,7 +318,15 @@ void BlobGameSystem::applyContacts()
 			groundGen->ground = (*blockIt)->particle;
 			groundGen->other = (*blobIt)->particle;
 			groundGen->radius = (*blobIt)->particle->getRadius();
-			//mParticleSystem->applyContact((*blobIt)->particle, (*blockIt)->particle, groundGen);
+			mParticleSystem->addContact(groundGen);
+		}
+		vector<Arm*>::iterator armIt = mArms.begin();
+		for (armIt; armIt != mArms.end(); ++armIt)
+		{
+			GroundContactGenerator* groundGen = new GroundContactGenerator();
+			groundGen->ground = (*blockIt)->particle;
+			groundGen->other = (*armIt)->particle;
+			groundGen->radius = (*armIt)->particle->getRadius();
 			mParticleSystem->addContact(groundGen);
 		}
 	}
@@ -284,9 +375,22 @@ void BlobGameSystem::drawDebug()
 
 	glDisable(GL_DEPTH_TEST);
 
-	glColor4f(DEBUG_COLOR.r, DEBUG_COLOR.g, DEBUG_COLOR.b, DEBUG_COLOR.a);
-	drawString(-1, 0.95f, "Hand over your coffee!", DEBUG_COLOR);
-	drawString(-1, 0.9f, "Blob pos: "+mBlobs[0]->particle->getPosition().print(), DEBUG_COLOR);
+	//glColor4f(DEBUG_COLOR.r, DEBUG_COLOR.g, DEBUG_COLOR.b, DEBUG_COLOR.a);
+	float drawPos = 0.95f;
+	drawString(-1, drawPos, "Player pos: "+mPlayer->particle->getPosition().print(), Color(0,1,0));
+	drawString(-1, drawPos-=0.05f, "Player arms: "+to_string(arms), Color(0,1,0));
+	int armNum = 1;
+	vector<Arm*>::iterator armIt = mArms.begin();
+	for (armIt; armIt != mArms.end(); ++armIt)
+	{
+		if ((*armIt)->connected)
+		{
+			drawString(-1, drawPos-=0.05f, "\tArm "+to_string(armNum)+": "+(*armIt)->particle->getPosition().print(), Color(0,1,0));
+			armNum++;
+		}
+	}
+	drawString(-1, drawPos-=0.1f, "WASD to move", DEBUG_COLOR);
+	drawString(-1, drawPos-=0.05f, "R to reset", DEBUG_COLOR);
 
 	glEnable(GL_DEPTH_TEST);
 
@@ -298,6 +402,7 @@ void BlobGameSystem::drawDebug()
 
 void BlobGameSystem::drawString(float x, float y, string text, Color color)
 {
+	glColor4f(color.r, color.g, color.b, color.a);
 	const char* temp = text.c_str();
 
 	glRasterPos2f(x, y);
@@ -306,8 +411,6 @@ void BlobGameSystem::drawString(float x, float y, string text, Color color)
 	sprintf(buf, temp);
 
 	const char *p = buf;
-
-	glColor4f(color.r, color.g, color.b, color.a);
 
 	do glutBitmapCharacter(GLUT_BITMAP_HELVETICA_18, *p);
 	while (*(++p));
@@ -321,6 +424,17 @@ void BlobGameSystem::initBlobs()
 	{
 		(*blobIt)->particle->setPosition((*blobIt)->startPosition);
 		(*blobIt)->particle->setVelocity(Vector3(0,0,0));
+	}
+}
+
+void BlobGameSystem::initArms()
+{
+	vector<Arm*>::iterator armIt = mArms.begin();
+
+	for (armIt; armIt != mArms.end(); ++armIt)
+	{
+		(*armIt)->particle->setPosition((*armIt)->startPosition);
+		(*armIt)->particle->setVelocity(Vector3(0,0,0));
 	}
 }
 
@@ -344,6 +458,8 @@ void BlobGameSystem::press(char key, int isPressed)
 			if (mCanRestart)
 			{
 				initBlobs();
+				initArms();
+				initBlocks();
 				mCanRestart = false;
 			}
 		}
@@ -389,6 +505,26 @@ void BlobGameSystem::press(char key, int isPressed)
 
 void BlobGameSystem::update(float duration)
 {
+	vector<Arm*>::iterator armIt = mArms.begin();
+
+	for (armIt; armIt != mArms.end(); ++armIt)
+	{
+		if ((*armIt)->connected)
+		{
+			continue;
+		}
+
+		Vector3 myPos = (*armIt)->particle->getPosition();
+		Vector3 playerPos = mPlayer->particle->getPosition();
+		float distance = myPos.distance(playerPos);
+		if (distance <= ARM_GRAB_DIST)
+		{
+			createCable((*armIt)->particle, mPlayer->particle, Color(0, 0.4f, 0), 0.5f, 20);
+			(*armIt)->connected = true;
+			arms++;
+		}
+	}
+
 	mParticleSystem->update(duration);
 }
 

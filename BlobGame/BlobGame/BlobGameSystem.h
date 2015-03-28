@@ -11,6 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
+#include <fstream>
 #include <string>
 
 using namespace std;
@@ -25,6 +26,15 @@ struct Blob
 	Vector3 startPosition;
 };
 
+struct Arm
+{
+	string name;
+	SphereParticle* particle;
+	Color color;
+	bool connected;
+	Vector3 startPosition;
+};
+
 struct Block
 {
 	string name;
@@ -33,12 +43,15 @@ struct Block
 	Vector3 startPosition;
 };
 
+const float ARM_GRAB_DIST = 20;
+
 class BlobGameSystem
 {
 private:
 	void cleanUp();
-	void createObjects();
+	void createLevel();
 	Blob* createBlob(string name, Color color, double size, double mass, Vector3 pos);
+	Arm* createArm(string name, Color color, double size, double mass, Vector3 pos);
 	Block* createBlock(string name, Color color, float width, float length, float height, double mass, Vector3 pos);
 	void createCube(string name, Color color, double size, double mass, double length, Vector3 pos);
 	void createPyramid(string name, Color color, double size, double mass, double length, Vector3 pos);
@@ -56,8 +69,10 @@ private:
 	bool mCanDebug;
 	Blob* mPlayer;
 	float mPlayerSpeed;
+	int arms;
 	vector<Blob*> mBlobs;
 	vector<Block*> mBlocks;
+	vector<Arm*> mArms;
 	ParticleSystem* mParticleSystem;
 	Camera* mCamera;
 public:
@@ -65,6 +80,7 @@ public:
 	~BlobGameSystem();
 
 	void initBlobs();
+	void initArms();
 	void initBlocks();
 	void press(char key, int isPressed);
 	void update(float duration);

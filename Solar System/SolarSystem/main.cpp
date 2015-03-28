@@ -112,6 +112,7 @@ int main(int argc, const char* argv[])
 		float newTotalTime = glfwGetTime();
 		float deltaTime = newTotalTime - totalTime;
 		totalTime = newTotalTime;
+		cout << deltaTime << endl;
 
 		camera->update(window, (float)width, (float)height);
 
