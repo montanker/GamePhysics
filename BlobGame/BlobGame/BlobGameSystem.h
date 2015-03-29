@@ -2,6 +2,8 @@
 #include "SphereParticle.h"
 #include "RectParticle.h"
 #include "EarthGravityGenerator.h"
+#include "AnchoredSpringGenerator.h"
+#include "BungeeForceGenerator.h"
 #include "ParticleLink.h"
 #include "GroundContactGenerator.h"
 #include "Camera.h"
@@ -24,6 +26,7 @@ struct Blob
 	SphereParticle* particle;
 	Color color;
 	Vector3 startPosition;
+	float springConstant;
 };
 
 struct Arm
@@ -56,6 +59,8 @@ private:
 	void createCube(string name, Color color, double size, double mass, double length, Vector3 pos);
 	void createPyramid(string name, Color color, double size, double mass, double length, Vector3 pos);
 	void createDiamond(string name, Color color, double size, double mass, double length, Vector3 pos);
+	void createSpring(Color color, double size, double mass, float springConstant, Vector3 pos);
+	void createBungee(Color color, double size, double mass, float springConstant, Vector3 pos);
 	void applyForces();
 	void applyContacts();
 	void createRod(Particle* particle1, Particle* particle2, Color color, double length);
@@ -68,6 +73,8 @@ private:
 	bool mDrawDebug;
 	bool mCanDebug;
 	Blob* mPlayer;
+	Blob* mSpring;
+	Blob* mBungee;
 	float mPlayerSpeed;
 	int arms;
 	vector<Blob*> mBlobs;

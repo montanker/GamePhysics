@@ -79,7 +79,9 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="AnchoredSpringGenerator.cpp" />
     <ClCompile Include="BlobGameSystem.cpp" />
+    <ClCompile Include="BungeeForceGenerator.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Cube.cpp" />
@@ -100,7 +102,9 @@
     <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="AnchoredSpringGenerator.h" />
     <ClInclude Include="BlobGameSystem.h" />
+    <ClInclude Include="BungeeForceGenerator.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Cube.h" />

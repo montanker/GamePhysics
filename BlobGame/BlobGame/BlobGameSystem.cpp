@@ -58,12 +58,13 @@ void BlobGameSystem::createLevel()
 		char letter;
 		double xOffset = tileSize*(tilesHor/2);
 		double zOffset = tileSize*(tilesVer/2);
+		double posAdd = tileSize/2;
 		while(getline(levelFile, line))
 		{
 			for (col=0; col<tilesHor; col++)
 			{
 				letter = line[col];
-				Vector3 createPos = Vector3(col*tileSize-xOffset, tileSize*2, row*tileSize-zOffset);
+				Vector3 createPos = Vector3(col*tileSize-xOffset+posAdd, tileSize*2, row*tileSize-zOffset+posAdd);
 				switch(letter)
 				{
 				case 'p':
@@ -76,6 +77,13 @@ void BlobGameSystem::createLevel()
 						mBlobs.push_back(player);
 					}
 					break;
+				case 'w':
+					{
+						Vector3 wallPos = Vector3(createPos.x, (tileSize/2), createPos.z);
+						Block* wall = createBlock("Wall", Color(0.1f, 0.1f, 0.1f), tileSize, tileSize, tileSize, -1, wallPos);
+						mBlocks.push_back(wall);
+					}
+					break;
 				case 'a':
 					{
 						Arm* arm = createArm("Arm", Color(0, 0.75f, 0), tileSize/4, 1, createPos);
@@ -83,13 +91,25 @@ void BlobGameSystem::createLevel()
 					}
 					break;
 				case 'c':
-					createCube("Cube", Color(0.4f, 0.4f, 0.4f), 1.0f, 300, tileSize, createPos);
+					createCube("Cube", Color(0.4f, 0.4f, 0.4f), 3.0f, 0.1f, tileSize, createPos);
 					break;
 				case 't':
-					createPyramid("Pyramid", Color(0.4f, 0.4f, 0.4f), 1.0f, 300, tileSize, createPos);
+					createPyramid("Pyramid", Color(0.4f, 0.4f, 0.4f), 3.0f, 0.1f, tileSize, createPos);
 					break;
 				case 'd':
-					createDiamond("Diamond", Color(0.4f, 0.4f, 0.4f), 1.0f, 300, tileSize, createPos);
+					createDiamond("Diamond", Color(0.4f, 0.4f, 0.4f), 3.0f, 0.1f, tileSize, createPos);
+					break;
+				case 's':
+					{
+						Vector3 springPos = Vector3(createPos.x, tileSize*2, createPos.z);
+						createSpring(Color(1,0,0), tileSize/2, 1, 0.5f, springPos);
+					}
+					break;
+				case 'b':
+					{
+						Vector3 bungeePos = Vector3(createPos.x, tileSize*2, createPos.z);
+						createBungee(Color(1,0.5f,0), tileSize/2, 1, 0.9f, bungeePos);
+					}
 					break;
 				}
 			}
@@ -177,6 +197,7 @@ void BlobGameSystem::createCube(string name, Color color, double size, double ma
 {
 	float posOffset = length/2;
 	float beamLength = sqrt(pow(length,2)*2);
+	float insideLength = sqrt(pow(length,2)+pow(beamLength,2));
 	Blob* cubeBUL = createBlob(name+"BottomUpperLeft", color, size, mass, Vector3(pos.x-posOffset, pos.y-posOffset, pos.z-posOffset));
 	Blob* cubeBUR = createBlob(name+"BottomUpperRight", color, size, mass, Vector3(pos.x+posOffset, pos.y-posOffset, pos.z-posOffset));
 	Blob* cubeBLL = createBlob(name+"BottomLowerLeft", color, size, mass, Vector3(pos.x-posOffset, pos.y-posOffset, pos.z+posOffset));
@@ -219,6 +240,10 @@ void BlobGameSystem::createCube(string name, Color color, double size, double ma
 	//Right wall
 	createRod(cubeTUR->particle, cubeBLR->particle, color, beamLength);
 	createRod(cubeTLR->particle, cubeBUL->particle, color, beamLength);
+	//Inside
+	createRod(cubeTUL->particle, cubeBLR->particle, color, insideLength);
+	createRod(cubeTUR->particle, cubeBLL->particle, color, insideLength);
+
 
 	mBlobs.push_back(cubeBUL);
 	mBlobs.push_back(cubeBUR);
@@ -284,6 +309,32 @@ void BlobGameSystem::createDiamond(string name, Color color, double size, double
 	mBlobs.push_back(diamondBottom);
 }
 
+void BlobGameSystem::createSpring(Color color, double size, double mass, float springConstant, Vector3 pos)
+{
+	Blob* blob = new Blob();
+	blob->name = "Spring";
+	blob->color = color;
+	blob->particle = new SphereParticle(size, mass, blob->color);
+	blob->startPosition = pos;
+	blob->springConstant = springConstant;
+	mSpring = blob;
+
+	mBlobs.push_back(blob);
+}
+
+void BlobGameSystem::createBungee(Color color, double size, double mass, float springConstant, Vector3 pos)
+{
+	Blob* blob = new Blob();
+	blob->name = "Bungee";
+	blob->color = color;
+	blob->particle = new SphereParticle(size, mass, blob->color);
+	blob->startPosition = pos;
+	blob->springConstant = springConstant;
+	mBungee = blob;
+
+	mBlobs.push_back(blob);
+}
+
 void BlobGameSystem::applyForces()
 {
 	//mParticleSystem->addParticle(mBlobs[0]->particle);
@@ -294,6 +345,21 @@ void BlobGameSystem::applyForces()
 	for (blobIt; blobIt != mBlobs.end(); ++blobIt)
 	{
 		mParticleSystem->applyForce((*blobIt)->particle, earthGrav);
+
+		if ((*blobIt)->name == "Spring")
+		{
+			Vector3 pos = (*blobIt)->particle->getPosition();
+			Vector3 anchorPos = Vector3(pos.x,pos.y+20,pos.z);
+			AnchoredSpringGenerator* springGen = new AnchoredSpringGenerator(anchorPos, (*blobIt)->springConstant, 10);
+			mParticleSystem->applyForce((*blobIt)->particle, springGen);
+		}
+		else if ((*blobIt)->name == "Bungee")
+		{
+			Vector3 pos = (*blobIt)->particle->getPosition();
+			Vector3 bungeePos = Vector3(pos.x,pos.y+40,pos.z);
+			BungeeForceGenerator* bungeeGen = new BungeeForceGenerator(bungeePos, (*blobIt)->springConstant, 10);
+			mParticleSystem->applyForce((*blobIt)->particle, bungeeGen);
+		}
 	}
 
 	vector<Arm*>::iterator armIt = mArms.begin();
@@ -311,23 +377,26 @@ void BlobGameSystem::applyContacts()
 	for (blockIt; blockIt != mBlocks.end(); ++blockIt)
 	{
 		mParticleSystem->addParticle((*blockIt)->particle);
-		vector<Blob*>::iterator blobIt = mBlobs.begin();
-		for (blobIt; blobIt != mBlobs.end(); ++blobIt)
+		if ((*blockIt)->name == "Floor")
 		{
-			GroundContactGenerator* groundGen = new GroundContactGenerator();
-			groundGen->ground = (*blockIt)->particle;
-			groundGen->other = (*blobIt)->particle;
-			groundGen->radius = (*blobIt)->particle->getRadius();
-			mParticleSystem->addContact(groundGen);
-		}
-		vector<Arm*>::iterator armIt = mArms.begin();
-		for (armIt; armIt != mArms.end(); ++armIt)
-		{
-			GroundContactGenerator* groundGen = new GroundContactGenerator();
-			groundGen->ground = (*blockIt)->particle;
-			groundGen->other = (*armIt)->particle;
-			groundGen->radius = (*armIt)->particle->getRadius();
-			mParticleSystem->addContact(groundGen);
+			vector<Blob*>::iterator blobIt = mBlobs.begin();
+			for (blobIt; blobIt != mBlobs.end(); ++blobIt)
+			{
+				GroundContactGenerator* groundGen = new GroundContactGenerator();
+				groundGen->ground = (*blockIt)->particle;
+				groundGen->other = (*blobIt)->particle;
+				groundGen->radius = (*blobIt)->particle->getRadius();
+				mParticleSystem->addContact(groundGen);
+			}
+			vector<Arm*>::iterator armIt = mArms.begin();
+			for (armIt; armIt != mArms.end(); ++armIt)
+			{
+				GroundContactGenerator* groundGen = new GroundContactGenerator();
+				groundGen->ground = (*blockIt)->particle;
+				groundGen->other = (*armIt)->particle;
+				groundGen->radius = (*armIt)->particle->getRadius();
+				mParticleSystem->addContact(groundGen);
+			}
 		}
 	}
 }
@@ -389,8 +458,18 @@ void BlobGameSystem::drawDebug()
 			armNum++;
 		}
 	}
+	if (mSpring != NULL)
+	{
+		drawString(-1, drawPos-=0.05f, "Spring pos: "+mSpring->particle->getPosition().print(), Color(1,0,0));
+	}
+	if (mBungee != NULL)
+	{
+		drawString(-1, drawPos-=0.05f, "Bungee pos: "+mBungee->particle->getPosition().print(), Color(1,0.5f,0));
+	}
 	drawString(-1, drawPos-=0.1f, "WASD to move", DEBUG_COLOR);
+	drawString(-1, drawPos-=0.05f, "Mouse to look", DEBUG_COLOR);
 	drawString(-1, drawPos-=0.05f, "R to reset", DEBUG_COLOR);
+	drawString(-1, drawPos-=0.05f, "F to toggle debug", DEBUG_COLOR);
 
 	glEnable(GL_DEPTH_TEST);
 

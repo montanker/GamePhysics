@@ -36,6 +36,7 @@ void Camera::handleMouseMove(GLFWwindow* window, float screenWidth, float screen
 	double mouseX;
 	double mouseY;
 	glfwGetCursorPos(window, &mouseX, &mouseY);
+	glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 	double horizontalMovement = mouseX - screenWidth/2;
 	double verticalMovement = mouseY - screenHeight/2;
