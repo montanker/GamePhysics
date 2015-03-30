@@ -1,5 +1,5 @@
 Base Repo:
 https://github.com/montanker/GamePhysics
 
-Solar System Assignment:
-https://github.com/montanker/GamePhysics/Solar System
+Blob Game Assignment:
+https://github.com/montanker/GamePhysics/BlobGame
