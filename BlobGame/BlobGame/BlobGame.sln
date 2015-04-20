@@ -5,8 +5,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlobGame", "Assignment 0.vc
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestClass", "..\TestClass\TestClass.vcxproj", "{94B76BBD-5E7C-4910-BC16-AA6D182B2C4C}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SolarSystemMain", "..\SolarSystemMain\SolarSystemMain.vcxproj", "{BC4EDFB8-AF4E-4A69-9033-68FC91403CAF}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "BlobGameMain", "..\BlobGameMain\BlobGameMain.vcxproj", "{D4CFC5F0-3E1D-4D67-B51B-5285B911705D}"
 EndProject
 Global
@@ -23,10 +21,6 @@ Global
 		{94B76BBD-5E7C-4910-BC16-AA6D182B2C4C}.Debug|Win32.Build.0 = Debug|Win32
 		{94B76BBD-5E7C-4910-BC16-AA6D182B2C4C}.Release|Win32.ActiveCfg = Release|Win32
 		{94B76BBD-5E7C-4910-BC16-AA6D182B2C4C}.Release|Win32.Build.0 = Release|Win32
-		{BC4EDFB8-AF4E-4A69-9033-68FC91403CAF}.Debug|Win32.ActiveCfg = Debug|Win32
-		{BC4EDFB8-AF4E-4A69-9033-68FC91403CAF}.Debug|Win32.Build.0 = Debug|Win32
-		{BC4EDFB8-AF4E-4A69-9033-68FC91403CAF}.Release|Win32.ActiveCfg = Release|Win32
-		{BC4EDFB8-AF4E-4A69-9033-68FC91403CAF}.Release|Win32.Build.0 = Release|Win32
 		{D4CFC5F0-3E1D-4D67-B51B-5285B911705D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D4CFC5F0-3E1D-4D67-B51B-5285B911705D}.Debug|Win32.Build.0 = Debug|Win32
 		{D4CFC5F0-3E1D-4D67-B51B-5285B911705D}.Release|Win32.ActiveCfg = Release|Win32

@@ -1,6 +1,6 @@
-#include "stdafx.h"
+/*#include "stdafx.h"
 #include "CppUnitTest.h"
-#include "../SolarSystem/Vector3.h"
+#include "../BlobGame/Vector3.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -36,4 +36,4 @@ namespace TestClass
 			Assert::AreEqual(vector1.distance(vector2), testDist);
 		}
 	};
-}
+}*/

@@ -1,4 +1,4 @@
-﻿Build started 3/30/2015 2:14:10 PM.
+﻿Build started 3/31/2015 5:42:38 PM.
      1>Project "C:\GamePhysics\BlobGame\BlobGameMain\BlobGameMain.vcxproj" on node 2 (Build target(s)).
      1>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets(1422,5): warning : The referenced project '..\SolarSystem\Assignment 0.vcxproj' does not exist.
      1>InitializeBuildStatus:
@@ -17,4 +17,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.60
+Time Elapsed 00:00:10.00

@@ -10,7 +10,8 @@ unsigned GroundContactGenerator::addContact(ParticleContact* contact, unsigned l
 
 	if (otherPos < groundHeight)
 	{
-		contact->mPenetration = otherPos - groundHeight;
+		//contact->mPenetration = otherPos - groundHeight;
+		contact->mPenetration = groundHeight - otherPos;
 		contact->mRestitution = 0.1f;
 		contact->mContactNormal = Vector3(0.0f, 1.0f, 0.0f);
 		return 1;

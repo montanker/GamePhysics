@@ -1,18 +1,12 @@
-﻿Build started 3/30/2015 2:14:03 PM.
+﻿Build started 3/31/2015 5:42:28 PM.
      1>Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
-         Touching "Debug\BlobGame.unsuccessfulbuild".
+         Creating "Debug\BlobGame.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt BlobGameSystem.cpp SolarSystemSim.cpp main.cpp
-         SolarSystemSim.cpp
-     1>c:\gamephysics\blobgame\blobgame\solarsystemsim.cpp(212): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
-         BlobGameSystem.cpp
-     1>c:\gamephysics\blobgame\blobgame\blobgamesystem.cpp(490): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
-                 c:\program files (x86)\microsoft visual studio 11.0\vc\include\stdio.h(357) : see declaration of 'sprintf'
-         Generating Code...
-         Skipping... (no relevant changes detected)
-         main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /ZI /nologo /W3 /WX- /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt GroundContactGenerator.cpp
+         GroundContactGenerator.cpp
+     1>c:\gamephysics\blobgame\blobgame\groundcontactgenerator.cpp(8): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>c:\gamephysics\blobgame\blobgame\groundcontactgenerator.cpp(9): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
        Lib:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\GamePhysics\BlobGame\BlobGame\Debug\BlobGame.lib" glut32.lib glfw3dll.lib opengl32.lib glu32.lib /LIBPATH:"lib-msvc120" /NOLOGO Debug\AnchoredSpringGenerator.obj
          Debug\BlobGameSystem.obj
@@ -49,4 +43,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:07.11
+Time Elapsed 00:00:09.37
