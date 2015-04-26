@@ -102,6 +102,11 @@ Matrix4 Matrix4::inverse() const
 	return result;
 }
 
+Vector3 Matrix4::getAxisVector(int i) const
+{
+	return Vector3(values[i], values[i+4], values[i+8]);
+}
+
 Vector3 Matrix4::transform(const Vector3 &vector) const
 {
 	return (*this) * vector;

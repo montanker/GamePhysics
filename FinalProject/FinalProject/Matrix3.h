@@ -19,7 +19,7 @@ public:
 
 	friend Vector3 operator*(const Matrix3 &m1, const Vector3 &v1);
 	friend Matrix3 operator*(const Matrix3 &m1, const Matrix3 &m2);
-	friend Matrix3 operator*=(Matrix3 &m1, const Matrix3 &m2);
+	Matrix3& operator*=(const Matrix3 &m2);
 
 	double values[9];
 };

@@ -123,7 +123,7 @@ Matrix3 operator*(const Matrix3 &m1, const Matrix3 &m2)
 				   m1.values[6]*m2.values[2] + m1.values[7]*m2.values[5] + m1.values[8]*m2.values[8]);
 }
 
-Matrix3 operator*=(Matrix3 &m1, const Matrix3 &m2)
+Matrix3& Matrix3::operator*=(const Matrix3 &m2)
 {
 	double t1;
 	double t2;
@@ -132,22 +132,24 @@ Matrix3 operator*=(Matrix3 &m1, const Matrix3 &m2)
 	t1 = m1.values[0]*m2.values[0] + m1.values[1]*m2.values[3] + m1.values[2]*m2.values[6];
 	t2 = m1.values[0]*m2.values[1] + m1.values[1]*m2.values[4] + m1.values[2]*m2.values[7];
 	t3 = m1.values[0]*m2.values[2] + m1.values[1]*m2.values[5] + m1.values[2]*m2.values[8];
-	m1.values[0] = t1;
-	m1.values[1] = t2;
-	m1.values[2] = t3;
+	values[0] = t1;
+	values[1] = t2;
+	values[2] = t3;
 
 	t1 = m1.values[3]*m2.values[0] + m1.values[4]*m2.values[3] + m1.values[5]*m2.values[6];
 	t2 = m1.values[3]*m2.values[1] + m1.values[4]*m2.values[4] + m1.values[5]*m2.values[7];
 	t3 = m1.values[3]*m2.values[2] + m1.values[4]*m2.values[5] + m1.values[5]*m2.values[8];
-	m1.values[3] = t1;
-	m1.values[4] = t2;
-	m1.values[5] = t3;
+	values[3] = t1;
+	values[4] = t2;
+	values[5] = t3;
 
 	t1 = m1.values[6]*m2.values[0] + m1.values[7]*m2.values[3] + m1.values[8]*m2.values[6];
 	t2 = m1.values[6]*m2.values[1] + m1.values[7]*m2.values[4] + m1.values[8]*m2.values[7];
 	t3 = m1.values[6]*m2.values[2] + m1.values[7]*m2.values[5] + m1.values[8]*m2.values[8];
-	m1.values[6] = t1;
-	m1.values[7] = t2;
-	m1.values[8] = t3;
+	values[6] = t1;
+	values[7] = t2;
+	values[8] = t3;
+
+	return *this;
 }
 
