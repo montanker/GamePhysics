@@ -2,19 +2,6 @@
 
 const double DEFAULT_VALUE = 0;
 
-Matrix3::Matrix3()
-{
-	values[0] = DEFAULT_VALUE;
-	values[1] = DEFAULT_VALUE;
-	values[2] = DEFAULT_VALUE;
-	values[3] = DEFAULT_VALUE;
-	values[4] = DEFAULT_VALUE;
-	values[5] = DEFAULT_VALUE;
-	values[6] = DEFAULT_VALUE;
-	values[7] = DEFAULT_VALUE;
-	values[8] = DEFAULT_VALUE;
-}
-
 Matrix3::Matrix3(double val1, double val2, double val3, double val4, double val5, 
 				 double val6, double val7, double val8, double val9)
 {
@@ -70,14 +57,97 @@ void Matrix3::setInverse(const Matrix3 &m)
 	values[8] = (t1-t3)*invd;
 }
 
-void setTranspose(const Matrix3 &m);
-void setOrientation(const Quaternion &q);
-void invert();
-Matrix3 inverse() const;
-Matrix3 transpose() const;
-Vector3 transform(const Vector3 &vector) const;
+void Matrix3::setTranspose(const Matrix3 &m)
+{
+	values[0] = m.values[0];
+	values[1] = m.values[3];
+	values[2] = m.values[6];
+	values[3] = m.values[1];
+	values[4] = m.values[4];
+	values[5] = m.values[7];
+	values[6] = m.values[2];
+	values[7] = m.values[5];
+	values[8] = m.values[8];
+}
 
-friend Vector3 operator*(const Matrix3 &m1, const Vector3 &v1);
-friend Matrix3 operator*(const Matrix3 &m1, const Matrix3 &m2);
-friend Matrix3 operator*=(const Matrix3 &m1, const Matrix3 &m2);
+void Matrix3::setOrientation(const Quaternion &q)
+{
+	//Fill once Quaternions are fixed
+}
+
+Matrix3 Matrix3::invert()
+{
+	Matrix3 result;
+	result.setInverse(*this);
+	return result;
+}
+
+Matrix3 Matrix3::inverse() const
+{
+	Matrix3 result;
+	result.setInverse(*this);
+	return result;
+}
+
+Matrix3 Matrix3::transpose() const
+{
+	Matrix3 result;
+	result.setTranspose(*this);
+	return result;
+}
+
+Vector3 Matrix3::transform(const Vector3 &vector) const
+{
+	return (*this)*vector;
+}
+
+Vector3 operator*(const Matrix3 &m1, const Vector3 &v1)
+{
+	return Vector3(v1.x*m1.values[0]+v1.y*m1.values[1]+v1.z*m1.values[2],
+		           v1.x*m1.values[3]+v1.y*m1.values[4]+v1.z*m1.values[5],
+				   v1.x*m1.values[6]+v1.y*m1.values[7]+v1.z*m1.values[8]);
+}
+
+Matrix3 operator*(const Matrix3 &m1, const Matrix3 &m2)
+{
+	return Matrix3(m1.values[0]*m2.values[0] + m1.values[1]*m2.values[3] + m1.values[2]*m2.values[6],
+				   m1.values[0]*m2.values[1] + m1.values[1]*m2.values[4] + m1.values[2]*m2.values[7],
+				   m1.values[0]*m2.values[2] + m1.values[1]*m2.values[5] + m1.values[2]*m2.values[8],
+
+				   m1.values[3]*m2.values[0] + m1.values[4]*m2.values[3] + m1.values[5]*m2.values[6],
+				   m1.values[3]*m2.values[1] + m1.values[4]*m2.values[4] + m1.values[5]*m2.values[7],
+				   m1.values[3]*m2.values[2] + m1.values[4]*m2.values[5] + m1.values[5]*m2.values[8],
+
+				   m1.values[6]*m2.values[0] + m1.values[7]*m2.values[3] + m1.values[8]*m2.values[6],
+				   m1.values[6]*m2.values[1] + m1.values[7]*m2.values[4] + m1.values[8]*m2.values[7],
+				   m1.values[6]*m2.values[2] + m1.values[7]*m2.values[5] + m1.values[8]*m2.values[8]);
+}
+
+Matrix3 operator*=(Matrix3 &m1, const Matrix3 &m2)
+{
+	double t1;
+	double t2;
+	double t3;
+
+	t1 = m1.values[0]*m2.values[0] + m1.values[1]*m2.values[3] + m1.values[2]*m2.values[6];
+	t2 = m1.values[0]*m2.values[1] + m1.values[1]*m2.values[4] + m1.values[2]*m2.values[7];
+	t3 = m1.values[0]*m2.values[2] + m1.values[1]*m2.values[5] + m1.values[2]*m2.values[8];
+	m1.values[0] = t1;
+	m1.values[1] = t2;
+	m1.values[2] = t3;
+
+	t1 = m1.values[3]*m2.values[0] + m1.values[4]*m2.values[3] + m1.values[5]*m2.values[6];
+	t2 = m1.values[3]*m2.values[1] + m1.values[4]*m2.values[4] + m1.values[5]*m2.values[7];
+	t3 = m1.values[3]*m2.values[2] + m1.values[4]*m2.values[5] + m1.values[5]*m2.values[8];
+	m1.values[3] = t1;
+	m1.values[4] = t2;
+	m1.values[5] = t3;
+
+	t1 = m1.values[6]*m2.values[0] + m1.values[7]*m2.values[3] + m1.values[8]*m2.values[6];
+	t2 = m1.values[6]*m2.values[1] + m1.values[7]*m2.values[4] + m1.values[8]*m2.values[7];
+	t3 = m1.values[6]*m2.values[2] + m1.values[7]*m2.values[5] + m1.values[8]*m2.values[8];
+	m1.values[6] = t1;
+	m1.values[7] = t2;
+	m1.values[8] = t3;
+}
 
