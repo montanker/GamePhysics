@@ -1,0 +1,23 @@
+﻿Build started 4/20/2015 2:54:14 PM.
+     1>Project "C:\GamePhysics\FinalProject\FinalProjectMain\BlobGameMain.vcxproj" on node 2 (Build target(s)).
+     1>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets(1422,5): warning : The referenced project '..\SolarSystem\Assignment 0.vcxproj' does not exist.
+     1>InitializeBuildStatus:
+         Creating "Debug\FinalProjectMain.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FinalProjectMain.cpp stdafx.cpp
+         stdafx.cpp
+         FinalProjectMain.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\FinalProject\FinalProject\Debug\FinalProjectMain.exe" /INCREMENTAL /NOLOGO /LIBPATH:"..\FinalProject\lib-msvc120" /LIBPATH:..\FinalProject\Debug glfw3.lib glut32.lib FinalProject.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\FinalProject\FinalProject\Debug\FinalProjectMain.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\FinalProject\FinalProject\Debug\FinalProjectMain.lib" /MACHINE:X86 Debug\FinalProjectMain.obj
+         Debug\stdafx.obj
+     1>LINK : warning LNK4067: ambiguous entry point; selected 'mainCRTStartup'
+         BlobGameMain.vcxproj -> C:\GamePhysics\FinalProject\FinalProject\Debug\FinalProjectMain.exe
+       FinalizeBuildStatus:
+         Deleting file "Debug\FinalProjectMain.unsuccessfulbuild".
+         Touching "Debug\FinalProjectMain.lastbuildstate".
+     1>Done Building Project "C:\GamePhysics\FinalProject\FinalProjectMain\BlobGameMain.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:02.82

@@ -1,0 +1,43 @@
+﻿Build started 3/31/2015 5:41:50 PM.
+     1>Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" on node 2 (Build target(s)).
+     1>InitializeBuildStatus:
+         Creating "Release\BlobGame.unsuccessfulbuild" because "AlwaysCreate" was specified.
+       ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt GroundContactGenerator.cpp
+         GroundContactGenerator.cpp
+     1>GroundContactGenerator.cpp(8): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+     1>GroundContactGenerator.cpp(9): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+       Lib:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\GamePhysics\BlobGame\BlobGame\Release\BlobGame.lib" glut32.lib glfw3dll.lib opengl32.lib glu32.lib /LIBPATH:"lib-msvc120" /NOLOGO /LTCG Release\AnchoredSpringGenerator.obj
+         Release\BlobGameSystem.obj
+         Release\BungeeForceGenerator.obj
+         Release\Camera.obj
+         Release\Color.obj
+         Release\Cube.obj
+         Release\EarthGravityGenerator.obj
+         Release\GroundContactGenerator.obj
+         Release\main.obj
+         Release\Particle.obj
+         Release\ParticleContact.obj
+         Release\ParticleContactResolver.obj
+         Release\ParticleForceRegistry.obj
+         Release\ParticleLink.obj
+         Release\ParticleSystem.obj
+         Release\PlanetaryGravityGenerator.obj
+         Release\RectParticle.obj
+         Release\Shape.obj
+         Release\SolarSystemSim.obj
+         Release\SphereParticle.obj
+         Release\Vector3.obj
+     1>glfw3dll.lib(glfw3.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
+     1>opengl32.lib(OPENGL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
+     1>glu32.lib(GLU32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
+         Assignment 0.vcxproj -> C:\GamePhysics\BlobGame\BlobGame\Release\BlobGame.lib
+       FinalizeBuildStatus:
+         Deleting file "Release\BlobGame.unsuccessfulbuild".
+         Touching "Release\BlobGame.lastbuildstate".
+     1>Done Building Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:12.33
