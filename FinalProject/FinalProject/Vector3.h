@@ -14,10 +14,12 @@ public:
 	void addScaledVector(Vector3 other, double scale);
 	double getMagnitude();
 	double dotProduct(Vector3 other);
+	double squareMagnitude();
 	void normalize();
 	string print();
 
 	friend Vector3 operator+(const Vector3 &v1, const Vector3 &v2);
+	Vector3& operator+=(const Vector3 &v2);
 	friend Vector3 operator-(const Vector3 &v1, const Vector3 &v2);
 	friend Vector3 operator*(const Vector3 &v1, const float &scalar);
 	friend Vector3 operator==(const Vector3 &v1, const Vector3 &v2);

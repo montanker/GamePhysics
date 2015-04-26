@@ -36,6 +36,13 @@ double Vector3::dotProduct(Vector3 other)
 	return dot;
 }
 
+double Vector3::squareMagnitude()
+{
+	double magnitude = pow(x,2)+pow(y,2)+pow(z,2);
+
+	return magnitude;
+}
+
 void Vector3::normalize()
 {
 	double mag = getMagnitude();
@@ -56,6 +63,15 @@ string Vector3::print()
 Vector3 operator+(const Vector3 &v1, const Vector3 &v2)
 {
 	return Vector3(v1.x+v2.x, v1.y+v2.y, v1.z+v2.z);
+}
+
+Vector3& Vector3::operator+=(const Vector3 &v2)
+{
+	x += v2.x;
+	y += v2.y;
+	z += v2.z;
+
+	return *this;
 }
 
 Vector3 operator-(const Vector3 &v1, const Vector3 &v2)

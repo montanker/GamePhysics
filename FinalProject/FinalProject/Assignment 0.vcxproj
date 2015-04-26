@@ -83,12 +83,14 @@
     <ClCompile Include="BlobGameSystem.cpp" />
     <ClCompile Include="BungeeForceGenerator.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CollisionDetection.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Cube.cpp" />
     <ClCompile Include="EarthGravityGenerator.cpp" />
     <ClCompile Include="GroundContactGenerator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix3.cpp" />
+    <ClCompile Include="Matrix4.cpp" />
     <ClCompile Include="Particle.cpp" />
     <ClCompile Include="ParticleContact.cpp" />
     <ClCompile Include="ParticleContactResolver.cpp" />
@@ -108,6 +110,7 @@
     <ClInclude Include="BlobGameSystem.h" />
     <ClInclude Include="BungeeForceGenerator.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="CollisionDetection.h" />
     <ClInclude Include="Color.h" />
     <ClInclude Include="Cube.h" />
     <ClInclude Include="EarthGravityGenerator.h" />
