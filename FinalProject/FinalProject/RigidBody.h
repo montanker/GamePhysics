@@ -38,6 +38,7 @@ public:
 	void calculateDerivedData();
 	void setInertiaTensor(const Matrix3 &inertiaTensor);
 	Vector3 getPointInWorldSpace(Vector3 point);
+	Matrix4 getTransform() { return transformMatrix; }
 
 	void addForce(const Vector3 &force);
 	void addForceAtPoint(const Vector3 &force, const Vector3 &point);

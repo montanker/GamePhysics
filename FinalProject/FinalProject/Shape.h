@@ -26,11 +26,11 @@ public:
 
 	virtual void update() = 0;
 	virtual void draw() = 0;
-	void setPos(float newX, float newY, float newZ);
+	void setPos(double newX, double newY, double newZ);
 	void setPos(Vector3 newPos);
 	void setRotation(float angle, float rotateX, float rotateY, float rotateZ);
 	void setRotation(float angle, Vector3 rotateVector);
-	void move(float moveX, float moveY, float moveZ);
+	void move(double moveX, double moveY, double moveZ);
 	void move(Vector3 moveVector);
 	void rotate(float angle, float rotateX, float rotateY, float rotateZ);
 	void rotate(float angle, Vector3 rotateVector);

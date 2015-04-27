@@ -1,3 +1,6 @@
+#ifndef __MATRIX3_H
+#define __MATRIX3_H
+
 #include "Vector3.h"
 #include "Quaternion.h"
 
@@ -23,3 +26,5 @@ public:
 
 	double values[9];
 };
+
+#endif

@@ -17,13 +17,18 @@ public:
 	Vector3 crossProduct(Vector3 other);
 	double squareMagnitude() const;
 	void normalize();
+	void clear();
 	string print();
 
 	friend Vector3 operator+(const Vector3 &v1, const Vector3 &v2);
 	Vector3& operator+=(const Vector3 &v2);
 	friend Vector3 operator-(const Vector3 &v1, const Vector3 &v2);
-	friend Vector3 operator*(const Vector3 &v1, const float &scalar);
-	Vector3& operator*=(const float &scalar);
+	Vector3& operator-=(const Vector3 &v2);
+
+	//friend Vector3 operator*(const Vector3 &v1, const float &scalar);
+	friend Vector3 operator*(const Vector3 &v1, const double &scalar);
+	//Vector3& operator*=(const float &scalar);
+	Vector3& operator*=(const double &scalar);
 	friend Vector3 operator==(const Vector3 &v1, const Vector3 &v2);
 	double& operator[](int index);
 	double operator[](int index) const;

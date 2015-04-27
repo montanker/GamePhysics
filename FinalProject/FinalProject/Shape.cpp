@@ -7,7 +7,7 @@ void Shape::init()
 	mRotationAngles = vector<float>();
 }
 
-void Shape::setPos(float newX, float newY, float newZ)
+void Shape::setPos(double newX, double newY, double newZ)
 {
 	mPos = Vector3(newX, newY, newZ);
 }
@@ -30,7 +30,7 @@ void Shape::setRotation(float angle, Vector3 rotateVector)
 	rotate(angle, rotateVector);
 }
 
-void Shape::move(float newX, float newY, float newZ)
+void Shape::move(double newX, double newY, double newZ)
 {
 	mPos.x += newX;
 	mPos.y += newY;
