@@ -13,8 +13,9 @@ public:
 	double distance(Vector3 other);
 	void addScaledVector(Vector3 other, double scale);
 	double getMagnitude();
-	double dotProduct(Vector3 other);
-	double squareMagnitude();
+	double dotProduct(Vector3 other) const;
+	Vector3 crossProduct(Vector3 other);
+	double squareMagnitude() const;
 	void normalize();
 	string print();
 
@@ -22,7 +23,11 @@ public:
 	Vector3& operator+=(const Vector3 &v2);
 	friend Vector3 operator-(const Vector3 &v1, const Vector3 &v2);
 	friend Vector3 operator*(const Vector3 &v1, const float &scalar);
+	Vector3& operator*=(const float &scalar);
 	friend Vector3 operator==(const Vector3 &v1, const Vector3 &v2);
+	double& operator[](int index);
+	double operator[](int index) const;
+	//friend Vector3 operator%(Vector3 &v1, Vector3 &v2);
 
 	double x;
 	double y;

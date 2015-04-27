@@ -29,14 +29,21 @@ double Vector3::getMagnitude()
 	return magnitude;
 }
 
-double Vector3::dotProduct(Vector3 other)
+double Vector3::dotProduct(Vector3 other) const
 {
 	double dot = (x*other.x) + (y*other.y) + (z*other.z);
 
 	return dot;
 }
 
-double Vector3::squareMagnitude()
+Vector3 Vector3::crossProduct(Vector3 other)
+{
+	return Vector3(y*other.z-z*other.y,
+                   z*other.x-x*other.z,
+                   x*other.y-y*other.x);
+}
+
+double Vector3::squareMagnitude() const
 {
 	double magnitude = pow(x,2)+pow(y,2)+pow(z,2);
 
@@ -84,6 +91,15 @@ Vector3 operator*(const Vector3 &v1,  const float &scalar)
 	return Vector3(v1.x*scalar, v1.y*scalar, v1.z*scalar);
 }
 
+Vector3& Vector3::operator*=(const float &scalar)
+{
+	x *= scalar;
+	y *= scalar;
+	z *= scalar;
+
+	return *this;
+}
+
 Vector3 operator==(const Vector3 &v1, const Vector3 &v2)
 {
 	bool sameX = v1.x == v2.x;
@@ -91,4 +107,34 @@ Vector3 operator==(const Vector3 &v1, const Vector3 &v2)
 	bool sameZ = v1.z == v2.z;
 
 	return (sameX && sameY && sameZ);
+}
+
+double& Vector3::operator[](int index)
+{
+	switch(index)
+	{
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	default:
+		return x;
+	}
+}
+
+double Vector3::operator[](int index) const
+{
+	switch(index)
+	{
+	case 0:
+		return x;
+	case 1:
+		return y;
+	case 2:
+		return z;
+	default:
+		return x;
+	}
 }

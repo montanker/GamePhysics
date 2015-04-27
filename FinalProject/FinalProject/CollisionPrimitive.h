@@ -7,7 +7,7 @@ public:
 	CollisionPrimitive();
 	void calculateInternals();
 	Vector3 getAxis(unsigned index) const;
-	const Matrix4& getTransform() {return transform;}
+	const Matrix4& getTransform() const {return transform;}
 
 	RigidBody* body;
 	Matrix4 offset;
