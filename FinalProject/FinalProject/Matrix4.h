@@ -1,3 +1,6 @@
+#ifndef __MATRIX_4_H
+#define __MATRIX_4_H
+
 #include "Vector3.h"
 #include "Quaternion.h"
 
@@ -28,3 +31,5 @@ public:
 
 	double values[16];
 };
+
+#endif

@@ -1,4 +1,5 @@
-/*#include "stdafx.h"
+#include "stdafx.h"
+/*
 #include "CppUnitTest.h"
 #include "../BlobGame/Vector3.h"
 

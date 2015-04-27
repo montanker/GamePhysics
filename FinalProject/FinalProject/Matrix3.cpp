@@ -128,6 +128,7 @@ Matrix3& Matrix3::operator*=(const Matrix3 &m2)
 	double t1;
 	double t2;
 	double t3;
+	Matrix3& m1 = *this;
 
 	t1 = m1.values[0]*m2.values[0] + m1.values[1]*m2.values[3] + m1.values[2]*m2.values[6];
 	t2 = m1.values[0]*m2.values[1] + m1.values[1]*m2.values[4] + m1.values[2]*m2.values[7];

@@ -5,8 +5,8 @@ unsigned GroundContactGenerator::addContact(ParticleContact* contact, unsigned l
 	contact->mParticle[0] = other;
 	contact->mParticle[1] = ground;
 
-	float groundHeight = ground->getPosition().y;
-	float otherPos = other->getPosition().y-radius;
+	double groundHeight = ground->getPosition().y;
+	double otherPos = other->getPosition().y-radius;
 
 	if (otherPos < groundHeight)
 	{

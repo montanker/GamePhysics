@@ -2,6 +2,7 @@
 #define QUATERNION_H
 
 #include <math.h>
+#include "Vector3.h"
 
 class Quaternion
 {

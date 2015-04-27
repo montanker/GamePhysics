@@ -59,6 +59,11 @@ void Vector3::normalize()
 	z = z/mag;
 }
 
+void Vector3::clear()
+{
+	x = y = z = 0.0;
+}
+
 string Vector3::print()
 {
 	stringstream ss;
@@ -81,6 +86,15 @@ Vector3& Vector3::operator+=(const Vector3 &v2)
 	return *this;
 }
 
+Vector3& Vector3::operator-=(const Vector3 &v2)
+{
+	x -= v2.x;
+	y -= v2.y;
+	z -= v2.z;
+
+	return *this;
+}
+
 Vector3 operator-(const Vector3 &v1, const Vector3 &v2)
 {
 	return Vector3(v1.x-v2.x, v1.y-v2.y, v1.z-v2.z);
@@ -91,7 +105,12 @@ Vector3 operator*(const Vector3 &v1,  const float &scalar)
 	return Vector3(v1.x*scalar, v1.y*scalar, v1.z*scalar);
 }
 
-Vector3& Vector3::operator*=(const float &scalar)
+Vector3 operator*(const Vector3 &v1,  const double &scalar)
+{
+	return Vector3(v1.x*scalar, v1.y*scalar, v1.z*scalar);
+}
+
+Vector3& Vector3::operator*=(const double &scalar)
 {
 	x *= scalar;
 	y *= scalar;

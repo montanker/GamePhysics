@@ -2,7 +2,7 @@
 #define FORCEGENERATOR_H
 
 #include "RigidBody.h"
-#include "Vector.h"
+#include "Vector3.h"
 
 class ForceGenerator
 {

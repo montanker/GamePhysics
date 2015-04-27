@@ -26,6 +26,8 @@ public:
     static bool sphereAndSphere(const CollisionSphere &one, const CollisionSphere &two);
     static bool boxAndBox(const CollisionBox &one, const CollisionBox &two);
     static bool boxAndPlane(const CollisionBox &box, const CollisionPlane &plane);
+	static bool boxAndHalfSpace(const CollisionBox &box, const CollisionPlane &plane);
+
 };
 
 class CollisionDetector

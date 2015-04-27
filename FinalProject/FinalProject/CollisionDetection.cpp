@@ -89,6 +89,14 @@ bool IntersectionTests::boxAndPlane(const CollisionBox &box, const CollisionPlan
     return boxDistance <= plane.offset;
 }
 
+bool IntersectionTests::boxAndHalfSpace(const CollisionBox &box, const CollisionPlane &plane)
+{
+    double projectedRadius = transformToAxis(box, plane.direction);
+    double boxDistance = plane.direction.dotProduct(box.getAxis(3)) - projectedRadius;
+
+    return boxDistance <= plane.offset;
+}
+
 double penetrationOnAxis(const CollisionBox &one, const CollisionBox &two, const Vector3 &axis, const Vector3 &toCentre)
 {
 	double oneProject = IntersectionTests::transformToAxis(one, axis);
@@ -284,6 +292,44 @@ unsigned CollisionDetector::sphereAndSphere(const CollisionSphere &one, const Co
 
 unsigned CollisionDetector::boxAndHalfSpace(const CollisionBox &box, const CollisionPlane &plane, CollisionData *data)
 {
+	if (data->contactsLeft <= 0) return 0;
+
+    if (!IntersectionTests::boxAndHalfSpace(box, plane))
+    {
+        return 0;
+    }
+
+    static double mults[8][3] = {{1,1,1},{-1,1,1},{1,-1,1},{-1,-1,1},
+                                 {1,1,-1},{-1,1,-1},{1,-1,-1},{-1,-1,-1}};
+
+    Contact* contact = data->contacts;
+    unsigned contactsUsed = 0;
+    for (unsigned i = 0; i < 8; i++) {
+        Vector3 vertexPos(mults[i][0], mults[i][1], mults[i][2]);
+		Vector3 h = box.halfSize;
+		vertexPos = Vector3(vertexPos.x*h.x,vertexPos.y*h.y,vertexPos.z*h.z);
+        vertexPos = box.transform.transform(vertexPos);
+
+        double vertexDistance = vertexPos.dotProduct(plane.direction);
+
+        if (vertexDistance <= plane.offset)
+        {
+            contact->contactPoint = plane.direction;
+            contact->contactPoint *= (vertexDistance-plane.offset);
+            contact->contactPoint += vertexPos;
+            contact->contactNormal = plane.direction;
+            contact->penetration = plane.offset - vertexDistance;
+
+            contact->setBodyData(box.body, NULL, data->friction, data->restitution);
+
+            contact++;
+            contactsUsed++;
+            if (contactsUsed == (unsigned)data->contactsLeft) return contactsUsed;
+        }
+    }
+
+    data->addContacts(contactsUsed);
+    return contactsUsed;
 }
 
 #define CHECK_OVERLAP(axis, index) \
@@ -395,9 +441,85 @@ unsigned CollisionDetector::boxAndBox(const CollisionBox &one, const CollisionBo
 
 unsigned CollisionDetector::boxAndPoint(const CollisionBox &box, const Vector3 &point, CollisionData *data)
 {
+    Vector3 relPt = box.transform.transformInverse(point);
+
+    Vector3 normal;
+
+    double min_depth = box.halfSize.x - abs(relPt.x);
+    if (min_depth < 0) return 0;
+    normal = box.getAxis(0) * ((relPt.x < 0)?-1:1);
+
+    double depth = box.halfSize.y - abs(relPt.y);
+    if (depth < 0) return 0;
+    else if (depth < min_depth)
+    {
+        min_depth = depth;
+        normal = box.getAxis(1) * ((relPt.y < 0)?-1:1);
+    }
+
+    depth = box.halfSize.z - abs(relPt.z);
+    if (depth < 0) return 0;
+    else if (depth < min_depth)
+    {
+        min_depth = depth;
+        normal = box.getAxis(2) * ((relPt.z < 0)?-1:1);
+    }
+
+    Contact* contact = data->contacts;
+    contact->contactNormal = normal;
+    contact->contactPoint = point;
+    contact->penetration = min_depth;
+
+    contact->setBodyData(box.body, NULL,
+        data->friction, data->restitution);
+
+    data->addContacts(1);
+    return 1;
 }
 
 unsigned CollisionDetector::boxAndSphere(const CollisionBox &box, const CollisionSphere &sphere, CollisionData *data)
 {
+	Vector3 centre = sphere.getAxis(3);
+    Vector3 relCentre = box.transform.transformInverse(centre);
 
+    if (abs(relCentre.x) - sphere.radius > box.halfSize.x ||
+        abs(relCentre.y) - sphere.radius > box.halfSize.y ||
+        abs(relCentre.z) - sphere.radius > box.halfSize.z)
+    {
+        return 0;
+    }
+
+    Vector3 closestPt(0,0,0);
+    double dist;
+
+    dist = relCentre.x;
+    if (dist > box.halfSize.x) dist = box.halfSize.x;
+    if (dist < -box.halfSize.x) dist = -box.halfSize.x;
+    closestPt.x = dist;
+
+    dist = relCentre.y;
+    if (dist > box.halfSize.y) dist = box.halfSize.y;
+    if (dist < -box.halfSize.y) dist = -box.halfSize.y;
+    closestPt.y = dist;
+
+    dist = relCentre.z;
+    if (dist > box.halfSize.z) dist = box.halfSize.z;
+    if (dist < -box.halfSize.z) dist = -box.halfSize.z;
+    closestPt.z = dist;
+
+    dist = (closestPt - relCentre).squareMagnitude();
+    if (dist > sphere.radius * sphere.radius) return 0;
+
+    Vector3 closestPtWorld = box.transform.transform(closestPt);
+
+    Contact* contact = data->contacts;
+    contact->contactNormal = (closestPtWorld - centre);
+    contact->contactNormal.normalize();
+    contact->contactPoint = closestPtWorld;
+    contact->penetration = sphere.radius - sqrt(dist);
+    contact->setBodyData(box.body, sphere.body,
+        data->friction, data->restitution);
+
+    data->addContacts(1);
+    return 1;
 }
