@@ -107,6 +107,10 @@ Vector3 Matrix4::getAxisVector(int i) const
 	return Vector3(values[i], values[i+4], values[i+8]);
 }
 
+void Matrix4::setAxisVector(int i,double a, double b, double c) {
+	values[i] = a; values[i+4] = b; values[i+8] = c;
+}
+
 Vector3 Matrix4::transform(const Vector3 &vector) const
 {
 	return (*this) * vector;

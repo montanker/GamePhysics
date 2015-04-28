@@ -14,4 +14,5 @@ public:
 
 	void draw();
 	float getRadius() {return mRadius;};
+	void setColor(Color c) { mColor = c; }
 };

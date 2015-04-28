@@ -1,3 +1,6 @@
+#ifndef __COLLISIONPRIMITIVE_H
+#define __COLLISIONPRIMITIVE_H
+
 #include "RigidBody.h"
 #include "Matrix4.h"
 
@@ -7,6 +10,7 @@ public:
 	CollisionPrimitive();
 	void calculateInternals();
 	Vector3 getAxis(unsigned index) const;
+	void setAxis(unsigned index, Vector3 vals);
 	const Matrix4& getTransform() const {return transform;}
 
 	RigidBody* body;
@@ -37,3 +41,5 @@ public:
 	Vector3 direction;
 	double offset;
 };
+
+#endif
