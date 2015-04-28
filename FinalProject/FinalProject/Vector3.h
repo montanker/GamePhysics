@@ -14,6 +14,8 @@ public:
 	void addScaledVector(Vector3 other, double scale);
 	double getMagnitude();
 	double dotProduct(Vector3 other) const;
+	double scalarProduct(const Vector3 &vector) const;
+	Vector3 vectorProduct(const Vector3 &vector) const;
 	Vector3 crossProduct(Vector3 other);
 	double squareMagnitude() const;
 	void normalize();

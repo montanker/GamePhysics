@@ -7,9 +7,9 @@ class Contact
 	friend class ContactResolver;
 
 public:
-	void setBodyData(RigidBody* one, RigidBody *two, double friction, double restitution);
+	void setBodyData(RigidBody* one, RigidBody *two, double contactFriction, double contactRestitution);
 
-	RigidBody bodies[2];
+	RigidBody* bodies[2];
 	double friction;
 	double restitution;
 	double penetration;
@@ -17,20 +17,23 @@ public:
 	Vector3 contactNormal;
 
 protected:
-	Matrix3 contactToWorld;
-	Vector3 contactVelocity;
-	Vector3 relativeContactPosition[2];
 	Vector3 calculateLocalVelocity(unsigned bodyIndex, double duration);
 	Vector3 calculateFrictionlessImpulse(Matrix3 *inverseInertiaTensor);
     Vector3 calculateFrictionImpulse(Matrix3 *inverseInertiaTensor);
-	double desiredDeltaVelocity;
 	void calculateInternals(double duration);
 	void swapBodies();
 	void matchAwakeState();
 	void calculateContactBasis();
+	void calculateDesiredDeltaVelocity(double duration);
 	void applyImpulse(const Vector3 &impulse, RigidBody *body, Vector3 *velocityChange, Vector3 *rotationChange);
     void applyVelocityChange(Vector3 velocityChange[2], Vector3 rotationChange[2]);
     void applyPositionChange(Vector3 linearChange[2], Vector3 angularChange[2], double penetration);
+
+	Matrix3 contactToWorld;
+	Vector3 contactVelocity;
+	Vector3 relativeContactPosition[2];
+	double desiredDeltaVelocity;
+	
 };
 
 class ContactResolver
@@ -45,7 +48,7 @@ public:
 	void resolveContacts(Contact *contactArray, unsigned numContacts, double duration);
 
 	unsigned velocityIterationsUsed;
-	unsigned positionsIterationsUsed;
+	unsigned positionIterationsUsed;
 
 private:
 	bool validSettings;

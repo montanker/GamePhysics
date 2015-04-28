@@ -89,6 +89,11 @@ void RigidBody::setInertiaTensor(const Matrix3 &inertiaTensor)
 	inverseInertiaTensor.setInverse(inertiaTensor);
 }
 
+void RigidBody::setInertiaTensorWorld(Matrix3 &inertiaTensor)
+{
+	inverseInertiaTensorWorld.setInverse(inertiaTensor);
+}
+
 void RigidBody::addForce(const Vector3 &force)
 {
 	forceAccum += force;
@@ -108,6 +113,16 @@ void RigidBody::addForceAtPoint(const Vector3 &force, const Vector3 &point)
 	forceAccum += force;
 	torqueAccum += pt.crossProduct(force);
 	isAwake = true;
+}
+
+void RigidBody::addVelocity(const Vector3 &deltaVelocity)
+{
+    velocity += deltaVelocity;
+}
+
+void RigidBody::addRotation(const Vector3 &deltaRotation)
+{
+    rotation += deltaRotation;
 }
 
 void RigidBody::clearAccumulators()
@@ -167,4 +182,9 @@ bool RigidBody::hasFiniteMass()
 Vector3 RigidBody::getPointInWorldSpace(Vector3 point)
 {
 	return transformMatrix.transform(point);
+}
+
+Vector3 RigidBody::getPreviousAcceleration()
+{
+
 }

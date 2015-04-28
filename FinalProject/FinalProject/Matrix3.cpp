@@ -75,6 +75,32 @@ void Matrix3::setOrientation(const Quaternion &q)
 	//Fill once Quaternions are fixed
 }
 
+void Matrix3::setColumns(Vector3 col1, Vector3 col2, Vector3 col3)
+{
+	values[0] = col1.x;
+	values[3] = col1.y;
+	values[6] = col1.z;
+
+	values[1] = col2.x;
+	values[4] = col2.y;
+	values[7] = col2.z;
+
+	values[2] = col3.x;
+	values[5] = col3.y;
+	values[8] = col3.z;
+}
+
+void Matrix3::setSkewSymmetric(const Vector3 vector)
+{
+    values[0] = values[4] = values[8] = 0;
+    values[1] = -vector.z;
+    values[2] = vector.y;
+    values[3] = vector.z;
+    values[5] = -vector.x;
+    values[6] = -vector.y;
+    values[7] = vector.x;
+}
+
 Matrix3 Matrix3::invert()
 {
 	Matrix3 result;
@@ -99,6 +125,13 @@ Matrix3 Matrix3::transpose() const
 Vector3 Matrix3::transform(const Vector3 &vector) const
 {
 	return (*this)*vector;
+}
+
+Vector3 Matrix3::transformTranspose(Vector3 &vector)
+{
+	return Vector3(vector.x * values[0] + vector.y * values[3] + vector.z * values[6],
+                   vector.x * values[1] + vector.y * values[4] + vector.z * values[7],
+                   vector.x * values[2] + vector.y * values[5] + vector.z * values[8]);
 }
 
 Vector3 operator*(const Matrix3 &m1, const Vector3 &v1)
@@ -150,6 +183,21 @@ Matrix3& Matrix3::operator*=(const Matrix3 &m2)
 	values[6] = t1;
 	values[7] = t2;
 	values[8] = t3;
+
+	return *this;
+}
+
+Matrix3& Matrix3::operator+=(const Matrix3 &m2)
+{
+	values[0] = m2.values[0];
+	values[1] = m2.values[1];
+	values[2] = m2.values[2];
+	values[3] = m2.values[3];
+	values[4] = m2.values[4];
+	values[5] = m2.values[5];
+	values[6] = m2.values[6];
+	values[7] = m2.values[7];
+	values[8] = m2.values[8];
 
 	return *this;
 }

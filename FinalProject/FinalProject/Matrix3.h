@@ -15,14 +15,18 @@ public:
 	void setInverse(const Matrix3 &m);
 	void setTranspose(const Matrix3 &m);
 	void setOrientation(const Quaternion &q);
+	void setColumns(Vector3 col1, Vector3 col2, Vector3 col3);
+	void setSkewSymmetric(const Vector3 vector);
 	Matrix3 invert();
 	Matrix3 inverse() const;
 	Matrix3 transpose() const;
 	Vector3 transform(const Vector3 &vector) const;
+	Vector3 transformTranspose(Vector3 &vector);
 
 	friend Vector3 operator*(const Matrix3 &m1, const Vector3 &v1);
 	friend Matrix3 operator*(const Matrix3 &m1, const Matrix3 &m2);
 	Matrix3& operator*=(const Matrix3 &m2);
+	Matrix3& operator+=(const Matrix3 &m2);
 
 	double values[9];
 };

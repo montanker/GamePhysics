@@ -36,6 +36,21 @@ double Vector3::dotProduct(Vector3 other) const
 	return dot;
 }
 
+double Vector3::scalarProduct(const Vector3 &vector) const
+{
+	double scaleProduct = x*vector.x;
+	scaleProduct += y*vector.y;
+	scaleProduct += z*vector.z;
+	return scaleProduct;
+}
+
+Vector3 Vector3::vectorProduct(const Vector3 &vector) const
+{
+    return Vector3(y*vector.z-z*vector.y,
+                   z*vector.x-x*vector.z,
+                   x*vector.y-y*vector.x);
+}
+
 Vector3 Vector3::crossProduct(Vector3 other)
 {
 	return Vector3(y*other.z-z*other.y,
