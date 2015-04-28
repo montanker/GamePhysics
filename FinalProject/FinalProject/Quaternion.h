@@ -8,8 +8,8 @@ class Quaternion
 {
 public:
 	Quaternion(){ r = 1; i = 0; j = 0; k = 0; };
-	Quaternion(double w, Vector3 vector);
-	Quaternion(double w, double x, double y, double z);
+	Quaternion(double w, Vector3 vector) : r(w), i(vector.x), j(vector.y), k(vector.z) { }  // FIXME??
+	Quaternion(double w, double x, double y, double z) : r(w), i(x), j(y), k(z) { }  // FIXME??
 
 	union
 	{

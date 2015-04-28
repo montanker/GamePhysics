@@ -4,6 +4,14 @@
 
 struct CollisionData
 {
+	CollisionData() : contactArray(NULL) { }
+	~CollisionData()
+	{
+		if(contactArray != NULL) {
+			delete contactArray;
+		}
+	}
+
 	Contact *contactArray;
     Contact *contacts;
     int contactsLeft;

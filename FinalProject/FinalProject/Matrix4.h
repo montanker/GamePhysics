@@ -17,6 +17,8 @@ public:
 	void setOrientationAndPos(const Quaternion &q, const Vector3 &pos);
 	Matrix4 inverse() const;
 	Vector3 getAxisVector(int i) const;
+	void setAxisVector(int i,double a, double b, double c);
+
 	Vector3 transform(const Vector3 &vector) const;
 	Vector3 transformInverse(const Vector3 &vector) const;
 	Vector3 transformDirection(const Vector3 &vector) const;

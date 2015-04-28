@@ -7,16 +7,19 @@ bool CollisionData::hasMoreContacts()
 
 void CollisionData::reset(unsigned maxContacts)
 {
+	if(contactArray != NULL) {
+		delete contactArray;
+	}
 	contactsLeft = maxContacts;
     contactCount = 0;
-    contacts = contactArray;
+    contacts = new Contact[maxContacts];
 }
 
 void CollisionData::addContacts(unsigned count)
 {
 	contactsLeft -= count;
     contactCount += count;
-    contacts += count;
+    //contacts += count;  FIXME
 }
 
 double IntersectionTests::transformToAxis(const CollisionBox &box,const Vector3 &axis)
@@ -97,7 +100,7 @@ bool IntersectionTests::boxAndHalfSpace(const CollisionBox &box, const Collision
     return boxDistance <= plane.offset;
 }
 
-double penetrationOnAxis(const CollisionBox &one, const CollisionBox &two, const Vector3 &axis, const Vector3 &toCentre)
+double CollisionDetector::penetrationOnAxis(const CollisionBox &one, const CollisionBox &two, const Vector3 &axis, const Vector3 &toCentre)
 {
 	double oneProject = IntersectionTests::transformToAxis(one, axis);
     double twoProject = IntersectionTests::transformToAxis(two, axis);
@@ -107,7 +110,7 @@ double penetrationOnAxis(const CollisionBox &one, const CollisionBox &two, const
     return oneProject + twoProject - distance;
 }
 
-bool tryAxis(const CollisionBox &one, const CollisionBox &two, Vector3 axis, const Vector3& toCentre,
+bool CollisionDetector::tryAxis(const CollisionBox &one, const CollisionBox &two, Vector3 axis, const Vector3& toCentre,
 		     unsigned index, double& smallestPenetration, unsigned &smallestCase)
 {
 	if (axis.squareMagnitude() < 0.0001) 
@@ -132,7 +135,7 @@ bool tryAxis(const CollisionBox &one, const CollisionBox &two, Vector3 axis, con
     return true;
 }
 
-void fillPointFaceBoxBox(const CollisionBox &one, const CollisionBox &two, const Vector3 &toCentre,
+void CollisionDetector::fillPointFaceBoxBox(const CollisionBox &one, const CollisionBox &two, const Vector3 &toCentre,
                          CollisionData *data, unsigned best, double pen)
 {
 	Contact* contact = data->contacts;
@@ -163,7 +166,7 @@ void fillPointFaceBoxBox(const CollisionBox &one, const CollisionBox &two, const
     contact->setBodyData(one.body, two.body, data->friction, data->restitution);
 }
 
-Vector3 contactPoint(const Vector3 &pOne, const Vector3 &dOne, double oneSize, const Vector3 &pTwo,
+Vector3 CollisionDetector::contactPoint(const Vector3 &pOne, const Vector3 &dOne, double oneSize, const Vector3 &pTwo,
                      const Vector3 &dTwo, double twoSize, bool useOne)
 {
 	Vector3 toSt, cOne, cTwo;

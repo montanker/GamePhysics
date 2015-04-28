@@ -4,11 +4,16 @@
 #include <Windows.h>
 #include <gl/gl.h>
 #include <gl/glu.h>
+#include <GLUT/glut.h>
 #include <GLFW/glfw3.h>
 
 #include "Cube.h"
 #include "Camera.h"
 //#include "BlobGameSystem.h"
+
+#include "SphereParticle.h"
+#include "CollisionPrimitive.h"
+#include "CollisionDetection.h"
 
 #include <stdlib.h>
 #include <stdio.h>
@@ -86,7 +91,25 @@ int main(int argc, const char* argv[])
 	camera->setRot(30, 0, 0);
 	glfwSetCursorPos(window, width/2, height/2);
 
+	float sz = 5.0f;
+	Cube cube = Cube(sz,sz,sz);
 	//blobGame = new BlobGameSystem(camera);
+
+	double spos = 29.0;
+
+	SphereParticle sphere[] = { SphereParticle(5.0,1.0,Color(0,0,1.0f)), SphereParticle(20.0,1.0,Color(1.0f,0,1.0f)) };
+	sphere[0].setPosition(Vector3(spos,0.0,0.0));
+	sphere[0].setVelocity(Vector3(-0.2,0.0,0.0));
+
+	CollisionData cdata = CollisionData();
+	CollisionSphere csphere[] = { CollisionSphere(), CollisionSphere() };
+	csphere[0].radius = 5.0;
+	csphere[0].setAxis(3,Vector3(spos,0.0,0.0));
+	csphere[1].radius = 20.0;
+
+	cdata.reset(1);
+	unsigned hit = CollisionDetector::sphereAndSphere(csphere[0],csphere[1],&cdata);
+	cout << "HIT: "<<hit<<endl;
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearDepth(1.0f);
@@ -105,7 +128,7 @@ int main(int argc, const char* argv[])
 		float deltaTime = newTotalTime - totalTime;
 		totalTime = newTotalTime;
 
-		camera->update(window, (float)width, (float)height);
+		//camera->update(window, (float)width, (float)height);
 
 		//blobGame->update(deltaTime);
 		/*for (int i=0; i<updateTicks; i++)
@@ -119,7 +142,24 @@ int main(int argc, const char* argv[])
 		camera->draw();
 		
 		glMatrixMode(GL_MODELVIEW);
+/*
+		cube.draw();
+		glutSolidSphere(5.0,20,20);*/
 		//blobGame->draw();
+		for(int s = 0;s<1;s++)
+		{
+			sphere[s].update(totalTime);
+			csphere[s].setAxis(3,sphere[s].getPosition());
+		}
+
+		cdata.reset(1);
+		unsigned hit = CollisionDetector::sphereAndSphere(csphere[0],csphere[1],&cdata);
+		sphere[1].setColor(hit?Color(1.0f,0,0):Color(0,1.0f,0)); 
+
+		for(int s = 0;s<2;s++)
+		{
+			sphere[s].draw();
+		}
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
