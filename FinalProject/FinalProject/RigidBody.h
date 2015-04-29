@@ -35,6 +35,9 @@ protected:
 	Vector3 lastFrameAcceleration;
 
 public:
+	RigidBody() { init(); }
+	void init();
+
 	void calculateDerivedData();
 	void setInertiaTensor(const Matrix3 &inertiaTensor);
 	void setInertiaTensorWorld(Matrix3 &inertiaTensor);
@@ -45,6 +48,7 @@ public:
 	void addForceAtPoint(const Vector3 &force, const Vector3 &point);
 	void addForceAtBodyPoint(const Vector3 &force, const Vector3 &point);
 	void addVelocity(const Vector3 &deltaVelocity);
+	void setVelocity(const Vector3 &velocity);
 	void addRotation(const Vector3 &deltaRotation);
 
 	void clearAccumulators();

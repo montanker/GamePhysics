@@ -1,3 +1,6 @@
+#ifndef __COLLISIONDETECTION_H
+#define __COLLISIONDETECTION_H
+
 #include "CollisionPrimitive.h"
 #include "Contacts.h"
 #include <float.h>
@@ -57,3 +60,5 @@ public:
     static unsigned boxAndPoint(const CollisionBox &box, const Vector3 &point, CollisionData *data);
     static unsigned boxAndSphere(const CollisionBox &box, const CollisionSphere &sphere, CollisionData *data);
 };
+
+#endif

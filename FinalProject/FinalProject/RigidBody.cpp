@@ -77,6 +77,22 @@ static inline void _transformInertiaTensor(
 	iitWorld.values[8] = t52*rotmat.values[8] + t57*rotmat.values[9] + t62*rotmat.values[10];
 }
 
+void RigidBody::init()
+{
+	inverseMass = 0;
+	linearDampening = 1;
+	angularDampening = 1;
+	position = Vector3(0,0,0);
+	orientation = Quaternion();
+	velocity = Vector3(0,0,0);
+
+	forceAccum = Vector3(0,0,0);
+	torqueAccum = Vector3(0,0,0);
+
+	acceleration = Vector3(0,0,0);
+	lastFrameAcceleration = Vector3(0,0,0);
+}
+
 void RigidBody::calculateDerivedData()
 {
 	orientation.normalize();
@@ -118,6 +134,11 @@ void RigidBody::addForceAtPoint(const Vector3 &force, const Vector3 &point)
 void RigidBody::addVelocity(const Vector3 &deltaVelocity)
 {
     velocity += deltaVelocity;
+}
+
+void RigidBody::setVelocity(const Vector3 &velocity)
+{
+    this->velocity = velocity;
 }
 
 void RigidBody::addRotation(const Vector3 &deltaRotation)

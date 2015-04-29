@@ -95,21 +95,42 @@ int main(int argc, const char* argv[])
 	Cube cube = Cube(sz,sz,sz);
 	//blobGame = new BlobGameSystem(camera);
 
-	double spos = 29.0;
+	double spos = 60.0;
 
-	SphereParticle sphere[] = { SphereParticle(5.0,1.0,Color(0,0,1.0f)), SphereParticle(20.0,1.0,Color(1.0f,0,1.0f)) };
-	sphere[0].setPosition(Vector3(spos,0.0,0.0));
-	sphere[0].setVelocity(Vector3(-0.2,0.0,0.0));
+	int nrb = 2;
+	RigidBody rb[] = { RigidBody(), RigidBody() };
+	rb[0].setPosition(Vector3(spos,0.0,0.0));
+	rb[0].setVelocity(Vector3(-20.0,0.0,0.0));
 
 	CollisionData cdata = CollisionData();
-	CollisionSphere csphere[] = { CollisionSphere(), CollisionSphere() };
-	csphere[0].radius = 5.0;
-	csphere[0].setAxis(3,Vector3(spos,0.0,0.0));
-	csphere[1].radius = 20.0;
+	int ncprim = 4;
+	CollisionPrimitive *cprim[] =
+	{
+		new CollisionSphere(5.0,Color(0,0,1.0f)),
+		new CollisionSphere(20.0,Color(1,1,1)),
+		new CollisionSphere(2.0,Color(1,1,0)),
+		new CollisionBox(Vector3(1,1,1),Color(1.0f,0,1.0f))
+	};
 
+	cprim[0]->body = &rb[0];
+
+	cprim[2]->body = &rb[0];
+	cprim[2]->offset.setAxisVector(3,-8.6,0,0);
+
+    cprim[3]->body = &rb[0];
+	cprim[3]->offset.setAxisVector(3,0,10,0);
+
+	cprim[1]->body = &rb[1];
+
+	// Test boxAndSphere
+	for(int s = 0;s<ncprim;s++)
+	{
+		cprim[s]->calculateInternals();
+	}
 	cdata.reset(1);
-	unsigned hit = CollisionDetector::sphereAndSphere(csphere[0],csphere[1],&cdata);
+	unsigned hit = cprim[1]->DetectCollision(cprim[3],&cdata);
 	cout << "HIT: "<<hit<<endl;
+
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 	glClearDepth(1.0f);
@@ -130,35 +151,34 @@ int main(int argc, const char* argv[])
 
 		//camera->update(window, (float)width, (float)height);
 
-		//blobGame->update(deltaTime);
-		/*for (int i=0; i<updateTicks; i++)
-		{
-			blobGame->update((float)deltaTime*speedupTick*speed);
-		}*/
-
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		glMatrixMode(GL_PROJECTION);
 		camera->draw();
 		
 		glMatrixMode(GL_MODELVIEW);
-/*
-		cube.draw();
-		glutSolidSphere(5.0,20,20);*/
-		//blobGame->draw();
-		for(int s = 0;s<1;s++)
+
+		for(int s = 0;s<nrb;s++)
 		{
-			sphere[s].update(totalTime);
-			csphere[s].setAxis(3,sphere[s].getPosition());
+			rb[s].integrate(deltaTime);
 		}
 
-		cdata.reset(1);
-		unsigned hit = CollisionDetector::sphereAndSphere(csphere[0],csphere[1],&cdata);
-		sphere[1].setColor(hit?Color(1.0f,0,0):Color(0,1.0f,0)); 
-
-		for(int s = 0;s<2;s++)
+		for(int s = 0;s<ncprim;s++)
 		{
-			sphere[s].draw();
+			cprim[s]->calculateInternals();
+		}
+
+		unsigned hit = 0;
+		cdata.reset(1);
+		// boxAndSphere maybe not working?
+		for(int s=0;s<ncprim-1;s++) {
+			if(s == 1) continue;
+			hit += cprim[1]->DetectCollision(cprim[s],&cdata);
+		}
+		cprim[1]->color = hit?Color(1.0f,0,0):Color(0,1.0f,0);
+
+		for(int s=0;s<ncprim;s++) {
+			cprim[s]->draw();
 		}
 
 		glfwSwapBuffers(window);
