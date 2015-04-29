@@ -1,5 +1,5 @@
 #ifndef COLOR_H
-#define COlOR_H
+#define COLOR_H
 
 class Color
 {
