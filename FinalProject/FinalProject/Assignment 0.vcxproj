@@ -105,6 +105,9 @@
     <ClCompile Include="Quaternion.cpp" />
     <ClCompile Include="RectParticle.cpp" />
     <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RigidBodyForceRegistry.cpp" />
+    <ClCompile Include="RigidBodyForces.cpp" />
+    <ClCompile Include="RigidBodySystem.cpp" />
     <ClCompile Include="Shape.cpp" />
     <ClCompile Include="SolarSystemSim.cpp" />
     <ClCompile Include="SphereParticle.cpp" />
@@ -138,6 +141,9 @@
     <ClInclude Include="Quaternion.h" />
     <ClInclude Include="RectParticle.h" />
     <ClInclude Include="RigidBody.h" />
+    <ClInclude Include="RigidBodyForceRegistry.h" />
+    <ClInclude Include="RigidBodyForces.h" />
+    <ClInclude Include="RigidBodySystem.h" />
     <ClInclude Include="Shape.h" />
     <ClInclude Include="SolarSystemSim.h" />
     <ClInclude Include="SphereParticle.h" />

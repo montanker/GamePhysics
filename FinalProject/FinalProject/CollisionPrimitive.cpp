@@ -23,7 +23,13 @@ void CollisionPrimitive::setAxis(unsigned index, Vector3 vals)
 	transform.setAxisVector(index,vals.x,vals.y,vals.z);
 }
 
-void CollisionPrimitive::draw() {
+void CollisionPrimitive::integrate(double duration)
+{
+	body->integrate(duration);
+}
+
+void CollisionPrimitive::draw() 
+{
 	glLoadIdentity();
 	glPushMatrix();
 
@@ -38,7 +44,8 @@ void CollisionPrimitive::draw() {
 	glPopMatrix();
 }
 
-void CollisionPrimitive::drawShape(Matrix4 &transform) {
+void CollisionPrimitive::drawShape(Matrix4 &transform) 
+{
 	GLUquadricObj* sphere;
 	sphere = gluNewQuadric();
 
@@ -48,7 +55,8 @@ void CollisionPrimitive::drawShape(Matrix4 &transform) {
 	gluDeleteQuadric(sphere);
 }
 
-void CollisionSphere::drawShape(Matrix4 &transform) {
+void CollisionSphere::drawShape(Matrix4 &transform) 
+{
 	GLUquadricObj* sphere;
 	sphere = gluNewQuadric();
 
@@ -57,7 +65,8 @@ void CollisionSphere::drawShape(Matrix4 &transform) {
 	gluDeleteQuadric(sphere);
 }
 
-bool CollisionSphere::DetectCollision(CollisionPrimitive *other,CollisionData *data) {
+bool CollisionSphere::DetectCollision(CollisionPrimitive *other,CollisionData *data) 
+{
 	switch(other->shape) {
 	case Sphere:
 		return(CollisionDetector::sphereAndSphere(*this,*(static_cast<CollisionSphere *>(other)),data));
@@ -67,7 +76,8 @@ bool CollisionSphere::DetectCollision(CollisionPrimitive *other,CollisionData *d
 	return(false);
 }
 
-bool CollisionBox::DetectCollision(CollisionPrimitive *other,CollisionData *data) {
+bool CollisionBox::DetectCollision(CollisionPrimitive *other,CollisionData *data) 
+{
 	switch(other->shape) {
 	case Box:
 		return(CollisionDetector::boxAndBox(*this,*(static_cast<CollisionBox *>(other)),data));
@@ -77,7 +87,8 @@ bool CollisionBox::DetectCollision(CollisionPrimitive *other,CollisionData *data
 	return(false);
 }
 
-void CollisionBox::drawShape(Matrix4 &transform) {
+void CollisionBox::drawShape(Matrix4 &transform) 
+{
 	GLfloat w = halfSize.x*2.0;
 	GLfloat h = halfSize.y*2.0;
 	GLfloat z = halfSize.z*2.0;
@@ -114,4 +125,30 @@ void CollisionBox::drawShape(Matrix4 &transform) {
 		glVertex3f(+w, -h, z);
 		glVertex3f(+w, -h, -z);
 	glEnd();
+}
+
+void CollisionPlane::drawShape(Matrix4 &transform) 
+{
+	GLfloat size = 100;
+	GLfloat height = 0.1f;
+
+	glBegin(GL_QUADS);
+		//Top face (y = 1.0f) 
+		glVertex3f(size, height, -size);
+		glVertex3f(-size, height, -size);
+		glVertex3f(-size, height, size);
+		glVertex3f(+size, height, size);
+	glEnd();
+}
+
+bool CollisionPlane::DetectCollision(CollisionPrimitive *other,CollisionData *data) 
+{
+	switch(other->shape) 
+	{
+	case Box:
+		return(CollisionDetector::boxAndHalfSpace(*(static_cast<CollisionBox *>(other)),*this,data));
+	case Sphere:
+		return(CollisionDetector::sphereAndHalfSpace(*(static_cast<CollisionSphere *>(other)),*this,data));
+	}
+	return(false);
 }

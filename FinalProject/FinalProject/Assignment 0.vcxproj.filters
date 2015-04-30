@@ -52,6 +52,9 @@
     <Filter Include="Source Files\Collision">
       <UniqueIdentifier>{e2dc52b9-9dca-48da-8e29-505f473c91fa}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\RigidBody">
+      <UniqueIdentifier>{1f77cac9-150a-4a82-b98c-a2cd48fc53a0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -138,11 +141,20 @@
     <ClCompile Include="CollisionDetection.cpp">
       <Filter>Source Files\Collision</Filter>
     </ClCompile>
-    <ClCompile Include="RigidBody.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ForceGenerator.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyForces.cpp">
+      <Filter>Source Files\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyForceRegistry.cpp">
+      <Filter>Source Files\RigidBody</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodySystem.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files\RigidBody</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -238,6 +250,15 @@
     </ClInclude>
     <ClInclude Include="ForceGenerator.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyForces.h">
+      <Filter>Header Files\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyForceRegistry.h">
+      <Filter>Header Files\RigidBody</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodySystem.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

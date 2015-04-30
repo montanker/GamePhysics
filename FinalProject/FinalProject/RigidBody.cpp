@@ -204,8 +204,3 @@ Vector3 RigidBody::getPointInWorldSpace(Vector3 point)
 {
 	return transformMatrix.transform(point);
 }
-
-//Vector3 RigidBody::getPreviousAcceleration()
-//{
-//
-//}

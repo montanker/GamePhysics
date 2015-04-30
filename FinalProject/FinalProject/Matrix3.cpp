@@ -72,7 +72,15 @@ void Matrix3::setTranspose(const Matrix3 &m)
 
 void Matrix3::setOrientation(const Quaternion &q)
 {
-	//Fill once Quaternions are fixed
+	values[0] = 1 - (2*q.j*q.j + 2*q.k*q.k);
+    values[1] = 2*q.i*q.j + 2*q.k*q.r;
+    values[2] = 2*q.i*q.k - 2*q.j*q.r;
+    values[3] = 2*q.i*q.j - 2*q.k*q.r;
+    values[4] = 1 - (2*q.i*q.i  + 2*q.k*q.k);
+    values[5] = 2*q.j*q.k + 2*q.i*q.r;
+    values[6] = 2*q.i*q.k + 2*q.j*q.r;
+    values[7] = 2*q.j*q.k - 2*q.i*q.r;
+    values[8] = 1 - (2*q.i*q.i  + 2*q.j*q.j);
 }
 
 void Matrix3::setColumns(Vector3 col1, Vector3 col2, Vector3 col3)

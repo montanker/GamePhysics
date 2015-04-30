@@ -92,7 +92,20 @@ void Matrix4::invert()
 
 void Matrix4::setOrientationAndPos(const Quaternion &q, const Vector3 &pos)
 {
-	//Needs quaternion
+	values[0] = 1 - (2*q.j*q.j + 2*q.k*q.k);
+    values[1] = 2*q.i*q.j + 2*q.k*q.r;
+    values[2] = 2*q.i*q.k - 2*q.j*q.r;
+    values[3] = pos.x;
+
+    values[4] = 2*q.i*q.j - 2*q.k*q.r;
+    values[5] = 1 - (2*q.i*q.i  + 2*q.k*q.k);
+    values[6] = 2*q.j*q.k + 2*q.i*q.r;
+    values[7] = pos.y;
+
+    values[8] = 2*q.i*q.k + 2*q.j*q.r;
+    values[9] = 2*q.j*q.k - 2*q.i*q.r;
+    values[10] = 1 - (2*q.i*q.i  + 2*q.j*q.j);
+    values[11] = pos.z;
 }
 
 Matrix4 Matrix4::inverse() const

@@ -14,6 +14,9 @@ public:
 	void calculateInternals();
 	Vector3 getAxis(unsigned index) const;
 	void setAxis(unsigned index, Vector3 vals);
+	void setPosition(Vector3 pos) {body->setPosition(pos);}
+	void setVelocity(Vector3 vel) {body->setVelocity(vel);}
+	void integrate(double duration);
 	const Matrix4& getTransform() const {return transform;}
 
 	RigidBody* body;
@@ -58,7 +61,8 @@ public:
 	CollisionPlane(Vector3 dir,Color c = Color(1,0,0)) : CollisionPrimitive(Plane,c), direction(dir) {  }
 	Vector3 direction;
 	double offset;
-	bool DetectCollision(CollisionPrimitive *other,struct CollisionData *data) { return(false); }
+	void drawShape(Matrix4 &transform);
+	bool DetectCollision(CollisionPrimitive *other,struct CollisionData *data);
 };
 
 #endif

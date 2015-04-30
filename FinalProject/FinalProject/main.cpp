@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include "Camera.h"
 //#include "BlobGameSystem.h"
+#include "RigidBodySystem.h"
 
 #include "SphereParticle.h"
 #include "CollisionPrimitive.h"
@@ -23,6 +24,7 @@ using namespace std;
 
 Camera* camera;
 //BlobGameSystem* blobGame;
+RigidBodySystem* rigidBodyGame;
 
 static void error_callback(int error, const char* description)
 {
@@ -38,23 +40,23 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
 
 	int ispress = action != GLFW_RELEASE;
     switch(key) {
-        //case GLFW_KEY_W: camera->press('w',ispress); break;
-        //case GLFW_KEY_S: camera->press('s',ispress); break;
-        //case GLFW_KEY_A: camera->press('a',ispress); break;
-        //case GLFW_KEY_D: camera->press('d',ispress); break;
+        case GLFW_KEY_W: camera->press('w',ispress); break;
+        case GLFW_KEY_S: camera->press('s',ispress); break;
+        case GLFW_KEY_A: camera->press('a',ispress); break;
+        case GLFW_KEY_D: camera->press('d',ispress); break;
 		/*case GLFW_KEY_W: blobGame->press('w',ispress); break;
 		case GLFW_KEY_S: blobGame->press('s',ispress); break;
 		case GLFW_KEY_A: blobGame->press('a',ispress); break;
-		case GLFW_KEY_D: blobGame->press('d',ispress); break;
-		case GLFW_KEY_R: blobGame->press('r',ispress); break;
-		case GLFW_KEY_F: blobGame->press('f',ispress); break;*/
+		case GLFW_KEY_D: blobGame->press('d',ispress); break;*/
+		case GLFW_KEY_R: rigidBodyGame->press('r',ispress); break;
+		case GLFW_KEY_F: rigidBodyGame->press('f',ispress); break;
     }
 }
 
 void cleanUp()
 {
 	delete(camera);
-	//delete(blobGame);
+	delete(rigidBodyGame);
 }
 
 int main(int argc, const char* argv[])
@@ -94,22 +96,24 @@ int main(int argc, const char* argv[])
 	float sz = 5.0f;
 	Cube cube = Cube(sz,sz,sz);
 	//blobGame = new BlobGameSystem(camera);
+	rigidBodyGame = new RigidBodySystem(camera);
 
 	double spos = 60.0;
 
 	int nrb = 2;
-	RigidBody rb[] = { RigidBody(), RigidBody() };
-	rb[0].setPosition(Vector3(spos,0.0,0.0));
+	RigidBody rb[] = { RigidBody(), RigidBody(), RigidBody()};
+	rb[0].setPosition(Vector3(spos,10.0,0.0));
 	rb[0].setVelocity(Vector3(-20.0,0.0,0.0));
 
 	CollisionData cdata = CollisionData();
-	int ncprim = 4;
+	int ncprim = 5;
 	CollisionPrimitive *cprim[] =
 	{
 		new CollisionSphere(5.0,Color(0,0,1.0f)),
 		new CollisionSphere(20.0,Color(1,1,1)),
 		new CollisionSphere(2.0,Color(1,1,0)),
-		new CollisionBox(Vector3(1,1,1),Color(1.0f,0,1.0f))
+		new CollisionBox(Vector3(1,1,1),Color(1.0f,0,1.0f)),
+		new CollisionPlane(Vector3(0,1,0),Color(0.2f,0.2f,0.2f))
 	};
 
 	cprim[0]->body = &rb[0];
@@ -121,15 +125,18 @@ int main(int argc, const char* argv[])
 	cprim[3]->offset.setAxisVector(3,0,10,0);
 
 	cprim[1]->body = &rb[1];
+	//cprim[1]->setPosition(Vector3(0, 25, 0));
+
+	cprim[4]->body = &rb[2];
 
 	// Test boxAndSphere
-	for(int s = 0;s<ncprim;s++)
+	/*for(int s = 0;s<ncprim;s++)
 	{
 		cprim[s]->calculateInternals();
 	}
 	cdata.reset(1);
 	unsigned hit = cprim[1]->DetectCollision(cprim[3],&cdata);
-	cout << "HIT: "<<hit<<endl;
+	cout << "HIT: "<<hit<<endl;*/
 
 
 	glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
@@ -149,7 +156,7 @@ int main(int argc, const char* argv[])
 		float deltaTime = newTotalTime - totalTime;
 		totalTime = newTotalTime;
 
-		//camera->update(window, (float)width, (float)height);
+		camera->update(window, (float)width, (float)height);
 
 		glViewport(0, 0, width, height);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -158,28 +165,40 @@ int main(int argc, const char* argv[])
 		
 		glMatrixMode(GL_MODELVIEW);
 
-		for(int s = 0;s<nrb;s++)
+		/*for(int s = 0;s<nrb;s++)
 		{
 			rb[s].integrate(deltaTime);
-		}
+		}*/
 
-		for(int s = 0;s<ncprim;s++)
+		rigidBodyGame->update(deltaTime);
+		/*for(int s = 0;s<ncprim;s++)
 		{
 			cprim[s]->calculateInternals();
-		}
+			cprim[s]->integrate(deltaTime);
+		}*/
 
 		unsigned hit = 0;
 		cdata.reset(1);
 		// boxAndSphere maybe not working?
-		for(int s=0;s<ncprim-1;s++) {
-			if(s == 1) continue;
+		for(int s=0;s<ncprim;s++) 
+		{
+			if(s == 1) 
+			{
+				continue;
+			}
+			if (s == 3)
+			{
+				continue;
+			}
 			hit += cprim[1]->DetectCollision(cprim[s],&cdata);
 		}
 		cprim[1]->color = hit?Color(1.0f,0,0):Color(0,1.0f,0);
 
-		for(int s=0;s<ncprim;s++) {
+		rigidBodyGame->draw();
+		/*for(int s=0;s<ncprim;s++)
+		{
 			cprim[s]->draw();
-		}
+		}*/
 
 		glfwSwapBuffers(window);
 		glfwPollEvents();
