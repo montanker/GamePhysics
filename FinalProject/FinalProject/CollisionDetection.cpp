@@ -7,19 +7,21 @@ bool CollisionData::hasMoreContacts()
 
 void CollisionData::reset(unsigned maxContacts)
 {
-	if(contactArray != NULL) {
+	if(contactArray != NULL) 
+	{
 		delete contactArray;
 	}
 	contactsLeft = maxContacts;
     contactCount = 0;
-    contacts = new Contact[maxContacts];
+    contactArray = new Contact[maxContacts];
+	contacts = contactArray;
 }
 
 void CollisionData::addContacts(unsigned count)
 {
 	contactsLeft -= count;
     contactCount += count;
-    //contacts += count;  FIXME
+    contacts += count;
 }
 
 double IntersectionTests::transformToAxis(const CollisionBox &box,const Vector3 &axis)

@@ -1,3 +1,6 @@
+#ifndef CONTACTS_H
+#define CONTACTS_H
+
 #include "RigidBody.h"
 #include "Vector3.h"
 #include "Matrix3.h"
@@ -39,6 +42,7 @@ protected:
 class ContactResolver
 {
 public:
+	ContactResolver();
 	ContactResolver(unsigned iterations, double velocityEpsilon=(double)0.01, double positionEpsilon=(double)0.01);
     ContactResolver(unsigned velocityIterations, unsigned positionIterations, double velocityEpsilon=(double)0.01, double positionEpsilon=(double)0.01);
 	bool isValid();
@@ -69,3 +73,5 @@ class ContactGenerator
 public:
     virtual unsigned addContact(Contact *contact, unsigned limit) const = 0;
 };
+
+#endif

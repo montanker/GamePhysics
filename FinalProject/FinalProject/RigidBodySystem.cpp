@@ -1,3 +1,4 @@
+#include "Contacts.h"
 #include "RigidBodySystem.h"
 
 RigidBodySystem::RigidBodySystem(Camera* camera)
@@ -11,6 +12,8 @@ RigidBodySystem::RigidBodySystem(Camera* camera)
 	mContacts = new Contact[mMaxContacts];
 	mFirstContactGen = NULL;
 	mResolver = ContactResolver(99);
+	mResolver.setIterations(99,99);
+	mResolver.setEpsilon(.01f, 0.01f);
 
 	mBalls = vector<Ball*>();
 	mForceReg = RbForceRegistry();
@@ -35,11 +38,15 @@ void RigidBodySystem::cleanUp()
 
 void RigidBodySystem::createLevel()
 {
-	Ball* staticBall = createBall("StaticBall", Color(1,0,0), 10, -1);
-	Ball* fallingBall = createBall("FallingBall", Color(0,1,0), 5, 1, Vector3(20, 0, 0));
+	Ball* staticBall = createBall("StaticBall", Color(1,0,0), 10, 99999);
+	Ball* fallingBall1 = createBall("FallingBall1", Color(0,1,0), 5, 1, Vector3(5, 20, 0));
+	Ball* fallingBall2 = createBall("FallingBall2", Color(0,1,0), 5, 1, Vector3(5, 40, 0));
+	Ball* fallingBall3 = createBall("FallingBall3", Color(0,1,0), 5, 1, Vector3(0, 20, -5));
 	
 	mBalls.push_back(staticBall);
-	mBalls.push_back(fallingBall);
+	mBalls.push_back(fallingBall1);
+	mBalls.push_back(fallingBall2);
+	mBalls.push_back(fallingBall3);
 
 	mStaticBall = staticBall;
 
@@ -68,7 +75,10 @@ void RigidBodySystem::applyForces()
 
 	for (ballIt; ballIt != mBalls.end(); ++ballIt)
 	{
-		mForceReg.add((*ballIt)->body, gravForce);
+		if ((*ballIt)->name != "StaticBall")
+		{
+			mForceReg.add((*ballIt)->body, gravForce);
+		}
 	}
 
 	/*RbSpring* springForce = new RbSpring(Vector3(0,0,0),mStaticBall->body, Vector3(0,0,0), 0.5f, 40);
@@ -121,27 +131,33 @@ void RigidBodySystem::drawString(float x, float y, string text, Color color)
 	while (*(++p));
 }
 
-unsigned RigidBodySystem::generateContacts()
+void RigidBodySystem::generateContacts(double duration)
 {
-    unsigned limit = maxContacts;
-    Contact *nextContact = contacts;
+	CollisionData data = CollisionData();
+	data.friction = 0.5f;
+	data.restitution = 0.5f;
+	data.reset(99);
 
-    ContactGenRegistration * reg = firstContactGen;
-    while (reg)
-    {
-        unsigned used = reg->gen->addContact(nextContact, limit);
-        limit -= used;
-        nextContact += used;
+	vector<Ball*>::iterator ballIt = mBalls.begin();
+	for (ballIt; ballIt != mBalls.end(); ++ballIt)
+	{
+		vector<Ball*>::iterator ballIt2 = mBalls.begin();
+		for (ballIt2; ballIt2 != mBalls.end(); ++ballIt2)
+		{
+			if (ballIt != ballIt2)
+			{
+				(*ballIt)->col->DetectCollision((*ballIt2)->col, &data);
+				
+			}
+		}
+	}
 
-        // We've run out of contacts to fill. This means we're missing
-        // contacts.
-        if (limit <= 0) break;
-
-        reg = reg->next;
-    }
-
-    // Return the number of contacts used.
-    return maxContacts - limit;
+	if (data.contactCount > 0)
+	{
+		cout << data.contactCount << endl;
+		mResolver.resolveContacts(data.contactArray, data.contactCount, duration);
+	}
+	
 }
 
 void RigidBodySystem::initBalls()
@@ -202,6 +218,7 @@ void RigidBodySystem::update(float duration)
 		(*ballIt)->col->integrate(duration);
 	}
 
+	generateContacts(duration);
 }
 
 void RigidBodySystem::draw()

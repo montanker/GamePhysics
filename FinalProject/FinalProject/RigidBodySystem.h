@@ -48,7 +48,7 @@ private:
 	void applyForces();
 	void drawDebug();
 	void drawString(float x, float y, string text, Color color);
-	unsigned generateContacts();
+	void generateContacts(double duration);
 
 	bool mCanRestart;
 	bool mDrawDebug;

@@ -348,6 +348,12 @@ void Contact::applyPositionChange(Vector3 linearChange[2], Vector3 angularChange
     }
 }
 
+ContactResolver::ContactResolver()
+{
+	setIterations(99, 99);
+    setEpsilon(.01f, .01f);
+}
+
 ContactResolver::ContactResolver(unsigned iterations, double velocityEpsilon, double positionEpsilon)
 {
 	setIterations(iterations, iterations);
@@ -368,8 +374,8 @@ bool ContactResolver::isValid()
 
 void ContactResolver::setIterations(unsigned velocityIterations, unsigned positionIterations)
 {
-	velocityIterations = velocityIterations;
-    positionIterations = positionIterations;
+	this->velocityIterations = velocityIterations;
+    this->positionIterations = positionIterations;
 }
 
 void ContactResolver::setIterations(unsigned iterations)
@@ -379,8 +385,8 @@ void ContactResolver::setIterations(unsigned iterations)
 
 void ContactResolver::setEpsilon(double velocityEpsilon, double positionEpsilon)
 {
-	velocityEpsilon = velocityEpsilon;
-    positionEpsilon = positionEpsilon;
+	this->velocityEpsilon = velocityEpsilon;
+    this->positionEpsilon = positionEpsilon;
 }
 
 void ContactResolver::resolveContacts(Contact *contactArray, unsigned numContacts, double duration)
