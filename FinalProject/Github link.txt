@@ -2,4 +2,4 @@ Base Repo:
 https://github.com/montanker/GamePhysics
 
 Blob Game Assignment:
-https://github.com/montanker/GamePhysics/BlobGame
+https://github.com/montanker/GamePhysics/tree/master/FinalProject

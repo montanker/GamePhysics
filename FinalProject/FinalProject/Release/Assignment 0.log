@@ -1,22 +1,108 @@
-﻿Build started 3/31/2015 5:41:50 PM.
-     1>Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/30/2015 5:21:35 PM.
+     1>Project "C:\GamePhysics\FinalProject\FinalProject\Assignment 0.vcxproj" on node 2 (Build target(s)).
      1>InitializeBuildStatus:
-         Creating "Release\BlobGame.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Creating "Release\FinalProject.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt GroundContactGenerator.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Iinclude /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D _MBCS /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt AnchoredSpringGenerator.cpp BlobGameSystem.cpp BungeeForceGenerator.cpp Camera.cpp CollisionDetection.cpp CollisionDetection_old.cpp CollisionPrimitive.cpp Color.cpp Contacts.cpp Cube.cpp EarthGravityGenerator.cpp ForceGenerator.cpp GroundContactGenerator.cpp main.cpp Matrix3.cpp Matrix4.cpp Particle.cpp ParticleContact.cpp ParticleContactResolver.cpp ParticleForceRegistry.cpp ParticleLink.cpp ParticleSystem.cpp PlanetaryGravityGenerator.cpp Quaternion.cpp RectParticle.cpp RigidBody.cpp RigidBodyForceRegistry.cpp RigidBodyForces.cpp RigidBodySystem.cpp Shape.cpp SolarSystemSim.cpp SphereParticle.cpp Vector3.cpp
+         AnchoredSpringGenerator.cpp
+         BlobGameSystem.cpp
+     1>BlobGameSystem.cpp(490): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
+         BungeeForceGenerator.cpp
+         Camera.cpp
+     1>Camera.cpp(147): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Camera.cpp(159): warning C4244: 'argument' : conversion from 'double' to 'float', possible loss of data
+     1>Camera.cpp(230): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         CollisionDetection.cpp
+         CollisionDetection_old.cpp
+         CollisionPrimitive.cpp
+     1>CollisionPrimitive.cpp(72): warning C4800: 'unsigned int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>CollisionPrimitive.cpp(83): warning C4800: 'unsigned int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>CollisionPrimitive.cpp(85): warning C4800: 'unsigned int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>CollisionPrimitive.cpp(92): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>CollisionPrimitive.cpp(93): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>CollisionPrimitive.cpp(94): warning C4244: 'initializing' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>CollisionPrimitive.cpp(149): warning C4800: 'unsigned int' : forcing value to bool 'true' or 'false' (performance warning)
+     1>CollisionPrimitive.cpp(151): warning C4800: 'unsigned int' : forcing value to bool 'true' or 'false' (performance warning)
+         Color.cpp
+         Contacts.cpp
+         Cube.cpp
+     1>Cube.cpp(37): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(38): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(39): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(40): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(43): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(44): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(45): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(46): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(49): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(50): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(51): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(52): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(55): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(56): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(57): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(58): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(61): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(62): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(63): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(64): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(67): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(68): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(69): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Cube.cpp(70): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         EarthGravityGenerator.cpp
+         ForceGenerator.cpp
          GroundContactGenerator.cpp
-     1>GroundContactGenerator.cpp(8): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
-     1>GroundContactGenerator.cpp(9): warning C4244: 'initializing' : conversion from 'double' to 'float', possible loss of data
+         main.cpp
+         Matrix3.cpp
+         Matrix4.cpp
+         Particle.cpp
+         ParticleContact.cpp
+     1>ParticleContact.cpp(28): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>ParticleContact.cpp(29): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         ParticleContactResolver.cpp
+         ParticleForceRegistry.cpp
+         Compiling...
+         ParticleLink.cpp
+         ParticleSystem.cpp
+         PlanetaryGravityGenerator.cpp
+         Quaternion.cpp
+         RectParticle.cpp
+         RigidBody.cpp
+         RigidBodyForceRegistry.cpp
+         RigidBodyForces.cpp
+         RigidBodySystem.cpp
+     1>RigidBodySystem.cpp(107): warning C4018: '<' : signed/unsigned mismatch
+     1>RigidBodySystem.cpp(138): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
+         Shape.cpp
+     1>Shape.cpp(50): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Shape.cpp(56): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+     1>Shape.cpp(59): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         SolarSystemSim.cpp
+     1>SolarSystemSim.cpp(212): warning C4996: 'sprintf': This function or variable may be unsafe. Consider using sprintf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\include\stdio.h(357) : see declaration of 'sprintf'
+         SphereParticle.cpp
+     1>SphereParticle.cpp(24): warning C4244: 'argument' : conversion from 'double' to 'GLfloat', possible loss of data
+         Vector3.cpp
        Lib:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\GamePhysics\BlobGame\BlobGame\Release\BlobGame.lib" glut32.lib glfw3dll.lib opengl32.lib glu32.lib /LIBPATH:"lib-msvc120" /NOLOGO /LTCG Release\AnchoredSpringGenerator.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\Lib.exe /OUT:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProject.lib" glut32.lib glfw3dll.lib opengl32.lib glu32.lib /LIBPATH:"lib-msvc120" /NOLOGO /LTCG Release\AnchoredSpringGenerator.obj
          Release\BlobGameSystem.obj
          Release\BungeeForceGenerator.obj
          Release\Camera.obj
+         Release\CollisionDetection.obj
+         Release\CollisionDetection_old.obj
+         Release\CollisionPrimitive.obj
          Release\Color.obj
+         Release\Contacts.obj
          Release\Cube.obj
          Release\EarthGravityGenerator.obj
+         Release\ForceGenerator.obj
          Release\GroundContactGenerator.obj
          Release\main.obj
+         Release\Matrix3.obj
+         Release\Matrix4.obj
          Release\Particle.obj
          Release\ParticleContact.obj
          Release\ParticleContactResolver.obj
@@ -24,7 +110,12 @@
          Release\ParticleLink.obj
          Release\ParticleSystem.obj
          Release\PlanetaryGravityGenerator.obj
+         Release\Quaternion.obj
          Release\RectParticle.obj
+         Release\RigidBody.obj
+         Release\RigidBodyForceRegistry.obj
+         Release\RigidBodyForces.obj
+         Release\RigidBodySystem.obj
          Release\Shape.obj
          Release\SolarSystemSim.obj
          Release\SphereParticle.obj
@@ -32,12 +123,12 @@
      1>glfw3dll.lib(glfw3.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
      1>opengl32.lib(OPENGL32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
      1>glu32.lib(GLU32.dll) : warning LNK4006: __NULL_IMPORT_DESCRIPTOR already defined in glut32.lib(glut32.dll); second definition ignored
-         Assignment 0.vcxproj -> C:\GamePhysics\BlobGame\BlobGame\Release\BlobGame.lib
+         Assignment 0.vcxproj -> C:\GamePhysics\FinalProject\FinalProject\Release\FinalProject.lib
        FinalizeBuildStatus:
-         Deleting file "Release\BlobGame.unsuccessfulbuild".
-         Touching "Release\BlobGame.lastbuildstate".
-     1>Done Building Project "C:\GamePhysics\BlobGame\BlobGame\Assignment 0.vcxproj" (Build target(s)).
+         Deleting file "Release\FinalProject.unsuccessfulbuild".
+         Touching "Release\FinalProject.lastbuildstate".
+     1>Done Building Project "C:\GamePhysics\FinalProject\FinalProject\Assignment 0.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:12.33
+Time Elapsed 00:01:01.97

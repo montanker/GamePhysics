@@ -8,6 +8,8 @@ RigidBodySystem::RigidBodySystem(Camera* camera)
 	mCanDebug = true;
 	mCamera = camera;
 
+	srand(time(NULL));
+
 	mMaxContacts = 99;
 	mContacts = new Contact[mMaxContacts];
 	mFirstContactGen = NULL;
@@ -38,15 +40,17 @@ void RigidBodySystem::cleanUp()
 
 void RigidBodySystem::createLevel()
 {
-	Ball* staticBall = createBall("StaticBall", Color(1,0,0), 10, 99999);
-	Ball* fallingBall1 = createBall("FallingBall1", Color(0,1,0), 5, 1, Vector3(5, 20, 0));
-	Ball* fallingBall2 = createBall("FallingBall2", Color(0,1,0), 5, 1, Vector3(5, 40, 0));
-	Ball* fallingBall3 = createBall("FallingBall3", Color(0,1,0), 5, 1, Vector3(0, 20, -5));
+	Ball* staticBall   = createBall("StaticBall", Color(1,0,0), 15, 99999);
+	Ball* fallingBall1 = createBall("FallingBall1", Color(0,1,0), 2, 2, Vector3(0, 20, 0));
+	Ball* fallingBall2 = createBall("FallingBall2", Color(0,0,1), 2, 2, Vector3(0, 40, 0));
+	Ball* fallingBall3 = createBall("FallingBall3", Color(1,1,0), 2, 2, Vector3(0, 20, 0));
+	Ball* fallingBall4 = createBall("FallingBall4", Color(1,0,1), 2, 2, Vector3(0, 20, 0));
 	
 	mBalls.push_back(staticBall);
 	mBalls.push_back(fallingBall1);
 	mBalls.push_back(fallingBall2);
 	mBalls.push_back(fallingBall3);
+	mBalls.push_back(fallingBall4);
 
 	mStaticBall = staticBall;
 
@@ -100,8 +104,16 @@ void RigidBodySystem::drawDebug()
 	//glColor4f(DEBUG_COLOR.r, DEBUG_COLOR.g, DEBUG_COLOR.b, DEBUG_COLOR.a);
 	float drawPos = 0.95f;
 	float spacing = 0.05f;
-	drawString(-1, drawPos, DEBUG_TEXT, DEBUG_COLOR);
-	drawString(-1, drawPos-=spacing, mBalls.at(1)->body->getPosition().print(), mBalls.at(1)->col->color);
+	for (int i=1; i < mBalls.size(); i++)
+	{
+		if (i>1)
+		{
+			drawPos-=spacing;
+		}
+		string text = "Ball "+ std::to_string(i) + " Position: ";
+		text +=  mBalls.at(i)->body->getPosition().print();
+		drawString(-1, drawPos, text, mBalls.at(i)->col->color);
+	}
 	drawString(-1, drawPos-=spacing, "WASD to move", DEBUG_COLOR);
 	drawString(-1, drawPos-=spacing, "Mouse to look", DEBUG_COLOR);
 	drawString(-1, drawPos-=spacing, "R to reset", DEBUG_COLOR);
@@ -154,7 +166,7 @@ void RigidBodySystem::generateContacts(double duration)
 
 	if (data.contactCount > 0)
 	{
-		cout << data.contactCount << endl;
+		//cout << data.contactCount << endl;
 		mResolver.resolveContacts(data.contactArray, data.contactCount, duration);
 	}
 	
@@ -166,8 +178,19 @@ void RigidBodySystem::initBalls()
 
 	for (ballIt; ballIt != mBalls.end(); ++ballIt)
 	{
-		(*ballIt)->col->setPosition((*ballIt)->startPos);
-		(*ballIt)->col->setVelocity((*ballIt)->startVel);
+		if ((*ballIt)->name != "StaticBall")
+		{
+			double height = rand() % 20 + 20;
+			double randX = rand() % 10 - 5;
+			double randZ = rand() % 10 - 5;
+			(*ballIt)->col->setPosition(Vector3(randX, height, randZ));
+			(*ballIt)->col->setVelocity((*ballIt)->startVel);
+		}
+		else
+		{
+			(*ballIt)->col->setPosition((*ballIt)->startPos);
+			(*ballIt)->col->setVelocity((*ballIt)->startVel);
+		}
 	}
 }
 

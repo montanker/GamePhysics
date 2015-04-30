@@ -1,17 +1,33 @@
-﻿Build started 3/31/2015 5:42:02 PM.
-     1>Project "C:\GamePhysics\BlobGame\BlobGameMain\BlobGameMain.vcxproj" on node 2 (Build target(s)).
+﻿Build started 4/30/2015 5:22:37 PM.
+     1>Project "C:\GamePhysics\FinalProject\FinalProjectMain\BlobGameMain.vcxproj" on node 2 (Build target(s)).
      1>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets(1422,5): warning : The referenced project '..\SolarSystem\Assignment 0.vcxproj' does not exist.
      1>InitializeBuildStatus:
-         Creating "Release\BlobGameMain.unsuccessfulbuild" because "AlwaysCreate" was specified.
+         Creating "Release\FinalProjectMain.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         All outputs are up-to-date.
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FinalProjectMain.cpp stdafx.cpp
+         FinalProjectMain.cpp
+         stdafx.cpp
        Link:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\BlobGame\BlobGame\Release\BlobGameMain.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"..\BlobGame\lib-msvc120" /LIBPATH:..\BlobGame\Release glfw3.lib glut32.lib BlobGame.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\BlobGame\BlobGame\Release\BlobGameMain.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\BlobGame\BlobGame\Release\BlobGameMain.lib" /MACHINE:X86 /SAFESEH Release\BlobGameMain.obj
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"..\FinalProject\lib-msvc120" /LIBPATH:..\FinalProject\Release glfw3.lib glut32.lib FinalProject.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.lib" /MACHINE:X86 /SAFESEH Release\FinalProjectMain.obj
          Release\stdafx.obj
-     1>C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V110\Microsoft.CppCommon.targets(611,5): error MSB6006: "link.exe" exited with code 1104.
-     1>LINK : fatal error LNK1104: cannot open file 'C:\GamePhysics\BlobGame\BlobGame\Release\BlobGameMain.exe'
-     1>Done Building Project "C:\GamePhysics\BlobGame\BlobGameMain\BlobGameMain.vcxproj" (Build target(s)) -- FAILED.
+         gl_libs\glfw3.lib
+         gl_libs\glfw3dll.lib
+         gl_libs\glut32.lib
+     1>LINK : warning LNK4067: ambiguous entry point; selected 'mainCRTStartup'
+         Generating code
+         Finished generating code
+         BlobGameMain.vcxproj -> C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.exe
+       PostBuildEvent:
+         xcopy /y /d  "C:\GamePhysics\FinalProject\FinalProjectMain\gl_libs\*.dll" "C:\GamePhysics\FinalProject\FinalProject\Release\"
+         :VCEnd
+         C:\GamePhysics\FinalProject\FinalProjectMain\gl_libs\glfw3.dll
+         C:\GamePhysics\FinalProject\FinalProjectMain\gl_libs\glut32.dll
+         2 File(s) copied
+       FinalizeBuildStatus:
+         Deleting file "Release\FinalProjectMain.unsuccessfulbuild".
+         Touching "Release\FinalProjectMain.lastbuildstate".
+     1>Done Building Project "C:\GamePhysics\FinalProject\FinalProjectMain\BlobGameMain.vcxproj" (Build target(s)).
 
-Build FAILED.
+Build succeeded.
 
-Time Elapsed 00:00:01.50
+Time Elapsed 00:00:04.40

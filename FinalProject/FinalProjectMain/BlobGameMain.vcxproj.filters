@@ -33,4 +33,15 @@
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="gl_libs\glfw3.lib" />
+    <Library Include="gl_libs\glfw3dll.lib" />
+    <Library Include="gl_libs\glut32.lib" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="gl_libs\glfw3.dll" />
+    <None Include="gl_libs\glut.def">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
 </Project>
