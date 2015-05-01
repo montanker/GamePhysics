@@ -1,12 +1,10 @@
-﻿Build started 4/30/2015 5:22:37 PM.
+﻿Build started 4/30/2015 10:43:47 PM.
      1>Project "C:\GamePhysics\FinalProject\FinalProjectMain\BlobGameMain.vcxproj" on node 2 (Build target(s)).
      1>C:\Windows\Microsoft.NET\Framework\v4.0.30319\Microsoft.Common.Targets(1422,5): warning : The referenced project '..\SolarSystem\Assignment 0.vcxproj' does not exist.
      1>InitializeBuildStatus:
          Creating "Release\FinalProjectMain.unsuccessfulbuild" because "AlwaysCreate" was specified.
        ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /Zi /nologo /W3 /WX- /O2 /Oi /Oy- /GL /D WIN32 /D NDEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm- /EHsc /MD /GS /Gy /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Release\\" /Fd"Release\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt FinalProjectMain.cpp stdafx.cpp
-         FinalProjectMain.cpp
-         stdafx.cpp
+         All outputs are up-to-date.
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.exe" /INCREMENTAL:NO /NOLOGO /LIBPATH:"..\FinalProject\lib-msvc120" /LIBPATH:..\FinalProject\Release glfw3.lib glut32.lib FinalProject.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.pdb" /SUBSYSTEM:CONSOLE /OPT:REF /OPT:ICF /LTCG /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\GamePhysics\FinalProject\FinalProject\Release\FinalProjectMain.lib" /MACHINE:X86 /SAFESEH Release\FinalProjectMain.obj
          Release\stdafx.obj
@@ -20,9 +18,7 @@
        PostBuildEvent:
          xcopy /y /d  "C:\GamePhysics\FinalProject\FinalProjectMain\gl_libs\*.dll" "C:\GamePhysics\FinalProject\FinalProject\Release\"
          :VCEnd
-         C:\GamePhysics\FinalProject\FinalProjectMain\gl_libs\glfw3.dll
-         C:\GamePhysics\FinalProject\FinalProjectMain\gl_libs\glut32.dll
-         2 File(s) copied
+         0 File(s) copied
        FinalizeBuildStatus:
          Deleting file "Release\FinalProjectMain.unsuccessfulbuild".
          Touching "Release\FinalProjectMain.lastbuildstate".
@@ -30,4 +26,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:04.40
+Time Elapsed 00:00:04.30
